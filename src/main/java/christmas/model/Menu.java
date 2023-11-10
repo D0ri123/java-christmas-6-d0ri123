@@ -34,8 +34,6 @@ public enum Menu {
         this.price = price;
     }
 
-
-
     public enum Category {
         APPETIZER,
         MAIN,

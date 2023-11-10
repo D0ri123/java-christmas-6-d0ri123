@@ -1,18 +1,22 @@
 package christmas;
 
 import christmas.view.InputView;
+import christmas.view.OutputView;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
         InputView inputView = new InputView();
+        OutputView outputView = new OutputView();
 
         String inputDate = inputView.askExpectedVisitDate();
+        //TODO: date 변수타입을 하나의 클래스로 만들기
         int date = Integer.parseInt(inputDate);
+        //TODO: inputOrder 변수타입을 하나의 클래스로 만들기
         String inputOrder = inputView.askOrderDetails();
 
-        System.out.printf("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!", date);
+        outputView.previewEventBenefits(date);
 
         System.out.println("\n\n<주문 메뉴>");
         List<Order> orderedMenu = new ArrayList<>();

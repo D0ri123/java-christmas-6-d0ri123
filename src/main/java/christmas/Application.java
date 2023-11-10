@@ -1,5 +1,6 @@
 package christmas;
 
+import christmas.model.Menu;
 import christmas.model.Order;
 import christmas.model.OrderDate;
 import christmas.model.OrderGroup;
@@ -21,9 +22,17 @@ public class Application {
         outputView.previewEventBenefits(date.getDate());
 
         outputView.printOrderMenuTitle();
-        for(Order order : inputOrder.getOrders()) {
+        for (Order order : inputOrder.getOrders()) {
             outputView.printOrderSummary(order.getMenu(), order.getQuantity());
         }
+
+        //할인되기 전의 총 가격을 구한다.
+        outputView.printTotalAmountBeforeDiscount();
+        int totalAmountBeforeDiscount = 0;
+        for (Order order : inputOrder.getOrders()) {
+            totalAmountBeforeDiscount += Menu.getPriceWithFoodNameCondition(order.getMenu()) * order.getQuantity();
+        }
+        outputView.printTotalAmountFormatting(totalAmountBeforeDiscount);
 
     }
 }

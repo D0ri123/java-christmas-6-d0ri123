@@ -1,10 +1,10 @@
-package christmas;
+package christmas.model;
 
-import static christmas.Menu.Category.APPETIZER;
-import static christmas.Menu.Category.BEVERAGE;
-import static christmas.Menu.Category.DESSERT;
-import static christmas.Menu.Category.FREE;
-import static christmas.Menu.Category.MAIN;
+import static christmas.model.Menu.Category.APPETIZER;
+import static christmas.model.Menu.Category.BEVERAGE;
+import static christmas.model.Menu.Category.DESSERT;
+import static christmas.model.Menu.Category.FREE;
+import static christmas.model.Menu.Category.MAIN;
 
 import java.util.Arrays;
 

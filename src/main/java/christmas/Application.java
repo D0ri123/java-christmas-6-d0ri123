@@ -1,24 +1,23 @@
 package christmas;
 
-
-import camp.nextstep.edu.missionutils.Console;
+import christmas.view.InputView;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
-        System.out.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
-        System.out.println("12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)");
-        int day = Integer.parseInt(Console.readLine());
+        InputView inputView = new InputView();
 
-        System.out.println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
-        String menu = Console.readLine().trim();
-        System.out.printf("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!", day);
+        String inputDate = inputView.askExpectedVisitDate();
+        int date = Integer.parseInt(inputDate);
+        String inputOrder = inputView.askOrderDetails();
+
+        System.out.printf("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!", date);
 
         System.out.println("\n\n<주문 메뉴>");
         List<Order> orderedMenu = new ArrayList<>();
 
-        for (String food : menu.split(",")) {
+        for (String food : inputOrder.split(",")) {
             int index = food.indexOf("-");
             String foodName = food.substring(0, index);
             int foodQuantity = Integer.parseInt(food.substring(index + 1));

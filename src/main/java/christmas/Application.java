@@ -1,11 +1,18 @@
 package christmas;
 
+import static christmas.model.Menu.Category.DESSERT;
+import static christmas.model.Menu.Category.MAIN;
+
 import christmas.model.Menu;
 import christmas.model.Order;
 import christmas.model.OrderDate;
 import christmas.model.OrderGroup;
 import christmas.view.InputView;
 import christmas.view.OutputView;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Application {
     public static void main(String[] args) {
@@ -36,12 +43,65 @@ public class Application {
         }
         outputView.printTotalAmountFormatting(totalAmountBeforeDiscount);
 
-        //TODO: 증정 메뉴 - 할인 전 총주문 금액이 12만원 이상일 때, 샴페인 1개 증정
         outputView.printFreebieMenuTitle();
         outputView.printFreebieMenu(totalAmountBeforeDiscount);
 
         //TODO: 혜택 내역 - 고객에게 적용된 이벤트 내역. 출력 순서는 자유롭게
+        outputView.printBenefitLogTitle();
 
+        Map<String, Integer> discountList = new HashMap<>();
+        List<String> conditions = new ArrayList<>(
+            List.of("크리스마스 디데이 할인", "평일 할인", "주말 할인", "특별 할인"));
+        List<String> weekdays = new ArrayList<>(
+            List.of("MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "SUNDAY"));
+        List<String> weekends = new ArrayList<>(
+            List.of("FRIDAY", "SATURDAY"));
+        List<Integer> specialDays = new ArrayList<>(
+            List.of(3,10,17,24,25,31));
+
+        for (String condition : conditions) {
+            discountList.put(condition, 0);
+        }
+
+        if (date.getDate() >= 1 && date.getDate() <= 25) {
+            int discountPrice = 1000 + (date.countDiscountDays() * 100);
+            discountList.put("크리스마스 디데이 할인", discountPrice);
+        }
+
+        if (weekdays.contains(date.getDay())) {
+            int discountMenu = 0;
+            for (Order order : inputOrder.getOrders()) {
+                discountMenu += Menu.countMenu(DESSERT, order.getMenu()) * order.getQuantity();
+            }
+            discountList.put("평일 할인", discountMenu * 2023);
+        }
+
+        if (weekends.contains(date.getDay())) {
+            int discountMenu = 0;
+            for (Order order : inputOrder.getOrders()) {
+                discountMenu += Menu.countMenu(MAIN, order.getMenu()) * order.getQuantity();
+            }
+            discountList.put("주말 할인", discountMenu * 2023);
+        }
+
+        if (specialDays.contains(date.getDate())) {
+            discountList.put("특별 할인", 1000);
+        }
+
+        int sum = discountList.values().stream()
+            .mapToInt(Integer::intValue)
+            .sum();
+
+        for (String discountCondition : discountList.keySet()) {
+            if(sum == 0) {
+                outputView.printNoBenefit();
+                break;
+            }
+            if (discountList.get(discountCondition) == 0) {
+                continue;
+            }
+            outputView.printBenefitDetails(discountCondition, discountList.get(discountCondition));
+        }
 
         //TODO: 총혜택 금액 = 할인 금액의 합계 + 증정 메뉴의 가격
 

@@ -20,6 +20,10 @@ public class OrderDate {
         return dayOfWeek.toString();
     }
 
+    public int countDiscountDays() {
+        return date - 1;
+    }
+
     public int getDate() {
         return date;
     }

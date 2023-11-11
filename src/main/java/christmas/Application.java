@@ -3,6 +3,7 @@ package christmas;
 import static christmas.model.Menu.Category.DESSERT;
 import static christmas.model.Menu.Category.MAIN;
 
+import christmas.model.Badge;
 import christmas.model.Menu;
 import christmas.model.Order;
 import christmas.model.OrderDate;
@@ -10,6 +11,7 @@ import christmas.model.OrderGroup;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -114,8 +116,10 @@ public class Application {
             outputView.printExpectedPayment(totalAmountBeforeDiscount - sum);
         }
 
-        //TODO: 12월 이벤트 배지 - 이벤트 배지가 부여되지 않는 경우, '없음'으로 보여주기
-
-
+        Badge appliedBadge = Arrays.stream(Badge.values())
+            .filter(badge -> badge.getMinimumLimit() <= sum)
+            .findFirst()
+            .orElseThrow(() -> new IllegalArgumentException("해당하는 뱃지가 없습니다."));
+        outputView.printBadge(appliedBadge.getName());
     }
 }

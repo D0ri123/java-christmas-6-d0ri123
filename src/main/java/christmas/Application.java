@@ -46,12 +46,11 @@ public class Application {
         outputView.printFreebieMenuTitle();
         outputView.printFreebieMenu(totalAmountBeforeDiscount);
 
-        //TODO: 혜택 내역 - 고객에게 적용된 이벤트 내역. 출력 순서는 자유롭게
         outputView.printBenefitLogTitle();
 
         Map<String, Integer> discountList = new HashMap<>();
         List<String> conditions = new ArrayList<>(
-            List.of("크리스마스 디데이 할인", "평일 할인", "주말 할인", "특별 할인"));
+            List.of("크리스마스 디데이 할인", "평일 할인", "주말 할인", "특별 할인", "증정 이벤트"));
         List<String> weekdays = new ArrayList<>(
             List.of("MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "SUNDAY"));
         List<String> weekends = new ArrayList<>(
@@ -88,6 +87,10 @@ public class Application {
             discountList.put("특별 할인", 1000);
         }
 
+        if (totalAmountBeforeDiscount >= 120_000) {
+            discountList.put("증정 이벤트", 25000);
+        }
+
         int sum = discountList.values().stream()
             .mapToInt(Integer::intValue)
             .sum();
@@ -103,13 +106,16 @@ public class Application {
             outputView.printBenefitDetails(discountCondition, discountList.get(discountCondition));
         }
 
-        //TODO: 총혜택 금액 = 할인 금액의 합계 + 증정 메뉴의 가격, 증정 메뉴의 가격을 반영하지 않음
         outputView.printTotalBenefitPrice(sum);
 
-        //TODO: 할인 후 예상 결제 금액 = 할인 전 총주문 금액 - 할인 금액
-        outputView.printExpectedPayment(totalAmountBeforeDiscount - sum);
+        if (discountList.get("증정 이벤트") != 0) {
+            outputView.printExpectedPayment(totalAmountBeforeDiscount - (sum - 25000));
+        } else {
+            outputView.printExpectedPayment(totalAmountBeforeDiscount - sum);
+        }
 
         //TODO: 12월 이벤트 배지 - 이벤트 배지가 부여되지 않는 경우, '없음'으로 보여주기
+
 
     }
 }

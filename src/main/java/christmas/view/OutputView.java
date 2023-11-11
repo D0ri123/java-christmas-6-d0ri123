@@ -71,7 +71,11 @@ public class OutputView {
 
     public void printTotalBenefitPrice(int sum) {
         System.out.println(totalBenefitPriceTitle);
-        System.out.printf(moneyUnit, formattingMoney(sum));
+        if(sum == 0) {
+            System.out.printf(moneyUnit, formattingMoney(sum));
+            return;
+        }
+        System.out.printf(moneyUnit, formattingMoney(-sum));
     }
 
     public void printExpectedPayment(int paymentAmount) {

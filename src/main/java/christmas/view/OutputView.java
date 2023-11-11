@@ -14,6 +14,9 @@ public class OutputView {
     private static final String benefitLogTitle = "\n<혜택 내역>";
     private static final String benefitDetails = "%s: -%s원\n";
     private static final String noBenefit = "없음";
+    private static final String totalBenefitPriceTitle = "\n<총혜택 금액>";
+    private static final String expectedPaymentTitle = "\n\n<할인 후 예상 결제 금액>";
+
 
 
     public void previewEventBenefits(int date) {
@@ -64,5 +67,15 @@ public class OutputView {
 
     public void printNoBenefit() {
         System.out.println(noBenefit);
+    }
+
+    public void printTotalBenefitPrice(int sum) {
+        System.out.println(totalBenefitPriceTitle);
+        System.out.printf(moneyUnit, formattingMoney(sum));
+    }
+
+    public void printExpectedPayment(int paymentAmount) {
+        System.out.println(expectedPaymentTitle);
+        System.out.printf(moneyUnit, formattingMoney(paymentAmount));
     }
 }

@@ -103,11 +103,11 @@ public class Application {
             outputView.printBenefitDetails(discountCondition, discountList.get(discountCondition));
         }
 
-        //TODO: 총혜택 금액 = 할인 금액의 합계 + 증정 메뉴의 가격
-
+        //TODO: 총혜택 금액 = 할인 금액의 합계 + 증정 메뉴의 가격, 증정 메뉴의 가격을 반영하지 않음
+        outputView.printTotalBenefitPrice(sum);
 
         //TODO: 할인 후 예상 결제 금액 = 할인 전 총주문 금액 - 할인 금액
-
+        outputView.printExpectedPayment(totalAmountBeforeDiscount - sum);
 
         //TODO: 12월 이벤트 배지 - 이벤트 배지가 부여되지 않는 경우, '없음'으로 보여주기
 

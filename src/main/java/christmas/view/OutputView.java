@@ -11,6 +11,10 @@ public class OutputView {
     private static final String totalAmountBeforeDiscountTitle = "\n<할인 전 총주문 금액>";
     private static final String moneyUnit = "%s원";
     private static final String freebieMenuTitle = "\n\n<증정 메뉴>";
+    private static final String benefitLogTitle = "\n<혜택 내역>";
+    private static final String benefitDetails = "%s: -%s원\n";
+    private static final String noBenefit = "없음";
+
 
     public void previewEventBenefits(int date) {
         System.out.printf(eventBenefits, EVENT_MONTH, date);
@@ -48,5 +52,17 @@ public class OutputView {
     private String formattingMoney(int totalAmount) {
         DecimalFormat money = new DecimalFormat("#,###");
         return money.format(totalAmount);
+    }
+
+    public void printBenefitLogTitle() {
+        System.out.println(benefitLogTitle);
+    }
+
+    public void printBenefitDetails(String discountCondition, int discountPrice) {
+        System.out.printf(benefitDetails, discountCondition, formattingMoney(discountPrice));
+    }
+
+    public void printNoBenefit() {
+        System.out.println(noBenefit);
     }
 }

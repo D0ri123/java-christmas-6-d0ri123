@@ -16,8 +16,7 @@ public class OutputView {
     private static final String noBenefit = "없음";
     private static final String totalBenefitPriceTitle = "\n<총혜택 금액>";
     private static final String expectedPaymentTitle = "\n\n<할인 후 예상 결제 금액>";
-
-
+    private static final String badgeTitle = "\n\n<%d월 이벤트 배지>\n";
 
     public void previewEventBenefits(int date) {
         System.out.printf(eventBenefits, EVENT_MONTH, date);
@@ -81,5 +80,10 @@ public class OutputView {
     public void printExpectedPayment(int paymentAmount) {
         System.out.println(expectedPaymentTitle);
         System.out.printf(moneyUnit, formattingMoney(paymentAmount));
+    }
+
+    public void printBadge(String name) {
+        System.out.printf(badgeTitle, EVENT_MONTH);
+        System.out.println(name);
     }
 }

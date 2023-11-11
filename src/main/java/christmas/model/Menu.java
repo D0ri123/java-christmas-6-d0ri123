@@ -49,6 +49,9 @@ public enum Menu {
     public int getPrice() {
         return price;
     }
+    public Category getCategory() {
+        return category;
+    }
 
     public static int getPriceWithFoodNameCondition(String foodName) {
         return Arrays.stream(Menu.values())
@@ -56,6 +59,13 @@ public enum Menu {
             .findFirst()
             .map(Menu::getPrice)
             .orElseThrow(() -> new IllegalArgumentException("찾는 음식이 없습니다."));
+    }
+
+    public static int countMenu(Category category, String foodName) {
+        return (int) Arrays.stream(Menu.values())
+            .filter(menu -> menu.getName().equals(foodName))
+            .filter(menu -> menu.getCategory().equals(category))
+            .count();
     }
 
     public static Menu decideWhetherToGiveFreebie(int totalPriceBeforeDiscount) {

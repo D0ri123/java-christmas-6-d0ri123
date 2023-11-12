@@ -3,7 +3,6 @@ package christmas.model;
 import static christmas.model.Menu.Category.APPETIZER;
 import static christmas.model.Menu.Category.BEVERAGE;
 import static christmas.model.Menu.Category.DESSERT;
-import static christmas.model.Menu.Category.FREE;
 import static christmas.model.Menu.Category.MAIN;
 
 import java.util.Arrays;
@@ -20,9 +19,7 @@ public enum Menu {
     ICE_CREAM(DESSERT, "아이스크림", 5_000),
     ZERO_COKE(BEVERAGE, "제로콜라", 3_000),
     RED_WINE(BEVERAGE, "레드와인", 60_000),
-    CHAMPAGNE(BEVERAGE, "샴페인", 25_000),
-    FREE_CHAMPAGNE(FREE, "샴페인", -25_000),
-    FREE_NONE(FREE, "없음", 0);
+    CHAMPAGNE(BEVERAGE, "샴페인", 25_000);
 
     private final Category category;
     private final String name;
@@ -38,8 +35,7 @@ public enum Menu {
         APPETIZER,
         MAIN,
         DESSERT,
-        BEVERAGE,
-        FREE
+        BEVERAGE
     }
 
     public String getName() {
@@ -68,10 +64,4 @@ public enum Menu {
             .count();
     }
 
-    public static Menu decideWhetherToGiveFreebie(int totalPriceBeforeDiscount) {
-        if (totalPriceBeforeDiscount >= 120_000) {
-            return FREE_CHAMPAGNE;
-        }
-        return FREE_NONE;
-    }
 }

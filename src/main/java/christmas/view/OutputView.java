@@ -2,7 +2,11 @@ package christmas.view;
 
 import static christmas.util.Constants.EVENT_MONTH;
 
+import christmas.model.Discount;
+import christmas.model.Freebie;
+import christmas.model.MemberBenefit;
 import java.text.DecimalFormat;
+import java.util.List;
 
 public class OutputView {
     private static final String eventBenefits = "%d월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!";
@@ -43,12 +47,8 @@ public class OutputView {
         System.out.println(freebieMenuTitle);
     }
 
-    public void printFreebieMenu(int totalAmountBeforeDiscount) {
-        if(totalAmountBeforeDiscount >= 120_000) {
-            System.out.println("샴페인 1개");
-            return;
-        }
-        System.out.println("없음");
+    public void printFreebieMenu(String freebieName) {
+        System.out.println(freebieName);
     }
 
     private String formattingMoney(int totalAmount) {
@@ -85,5 +85,19 @@ public class OutputView {
     public void printBadge(String name) {
         System.out.printf(badgeTitle, EVENT_MONTH);
         System.out.println(name);
+    }
+
+    public void printBenefitDetails(MemberBenefit memberBenefit) {
+        List<Discount> discountEvent = memberBenefit.getAppliedDiscount();
+        Freebie freebie = memberBenefit.getFreebie();
+        if(discountEvent.size() == 0) {
+            printNoBenefit();
+        }
+        for (Discount discount : memberBenefit.getAppliedDiscount()) {
+            printBenefitDetails(discount.getEventName(), discount.getAppliedPrice());
+        }
+        if (freebie != null) {
+            printBenefitDetails("증정 이벤트", freebie.getPrice());
+        }
     }
 }

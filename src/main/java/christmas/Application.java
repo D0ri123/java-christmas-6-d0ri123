@@ -1,31 +1,30 @@
 package christmas;
 
-import static christmas.model.Menu.Category.DESSERT;
-import static christmas.model.Menu.Category.MAIN;
-
 import christmas.model.Badge;
+import christmas.model.Discount;
+import christmas.model.Freebie;
+import christmas.model.MemberBenefit;
 import christmas.model.Menu;
 import christmas.model.Order;
 import christmas.model.OrderDate;
 import christmas.model.OrderGroup;
+import christmas.model.SpecialDiscount;
+import christmas.model.WeekdayDiscount;
+import christmas.model.WeekendDiscount;
+import christmas.model.XmasDiscount;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Application {
     public static void main(String[] args) {
         InputView inputView = new InputView();
         OutputView outputView = new OutputView();
 
-        // 주문 날짜를 입력받아 OrderDate에 날짜와 요일을 저장한다.
         String inputDate = inputView.askExpectedVisitDate();
         OrderDate date = new OrderDate(Integer.parseInt(inputDate));
-
-        //TODO: OrderDate 만을 가지고 알 수 있는 할인 정보 ->
 
         //주문 메뉴를 입력받아 OrderGroup에 메뉴와 개수를 저장한다.
         OrderGroup inputOrder = new OrderGroup(inputView.askOrderDetails());
@@ -45,76 +44,29 @@ public class Application {
         }
         outputView.printTotalAmountFormatting(totalAmountBeforeDiscount);
 
+        // 할인되기 전의 총 가격에 따른 증정품을 가져온다.
+        Freebie freebie = Freebie.provideFreebieByPrice(totalAmountBeforeDiscount);
         outputView.printFreebieMenuTitle();
-        outputView.printFreebieMenu(totalAmountBeforeDiscount);
+        outputView.printFreebieMenu(freebie.getName());
+
+        //적용되는 할인 조건이 적용가능한지 확인한다.
+        List<Discount> appliedBenefit = new ArrayList<>();
+        appliedBenefit.add(new XmasDiscount(date, inputOrder));
+        appliedBenefit.add(new SpecialDiscount(date, inputOrder));
+        appliedBenefit.add(new WeekdayDiscount(date, inputOrder));
+        appliedBenefit.add(new WeekendDiscount(date, inputOrder));
+
+        //적용 가능한 조건들을 MemberDiscount에 저장한다.
+        MemberBenefit memberBenefit = new MemberBenefit(appliedBenefit, freebie);
 
         outputView.printBenefitLogTitle();
+        outputView.printBenefitDetails(memberBenefit);
 
-        Map<String, Integer> discountList = new HashMap<>();
-        List<String> conditions = new ArrayList<>(
-            List.of("크리스마스 디데이 할인", "평일 할인", "주말 할인", "특별 할인", "증정 이벤트"));
-        List<String> weekdays = new ArrayList<>(
-            List.of("MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "SUNDAY"));
-        List<String> weekends = new ArrayList<>(
-            List.of("FRIDAY", "SATURDAY"));
-        List<Integer> specialDays = new ArrayList<>(
-            List.of(3,10,17,24,25,31));
-
-        for (String condition : conditions) {
-            discountList.put(condition, 0);
-        }
-
-        if (date.getDate() >= 1 && date.getDate() <= 25) {
-            int discountPrice = 1000 + (date.countDiscountDays() * 100);
-            discountList.put("크리스마스 디데이 할인", discountPrice);
-        }
-
-        if (weekdays.contains(date.getDay())) {
-            int discountMenu = 0;
-            for (Order order : inputOrder.getOrders()) {
-                discountMenu += Menu.countMenu(DESSERT, order.getMenu()) * order.getQuantity();
-            }
-            discountList.put("평일 할인", discountMenu * 2023);
-        }
-
-        if (weekends.contains(date.getDay())) {
-            int discountMenu = 0;
-            for (Order order : inputOrder.getOrders()) {
-                discountMenu += Menu.countMenu(MAIN, order.getMenu()) * order.getQuantity();
-            }
-            discountList.put("주말 할인", discountMenu * 2023);
-        }
-
-        if (specialDays.contains(date.getDate())) {
-            discountList.put("특별 할인", 1000);
-        }
-
-        if (totalAmountBeforeDiscount >= 120_000) {
-            discountList.put("증정 이벤트", 25000);
-        }
-
-        int sum = discountList.values().stream()
-            .mapToInt(Integer::intValue)
-            .sum();
-
-        for (String discountCondition : discountList.keySet()) {
-            if(sum == 0) {
-                outputView.printNoBenefit();
-                break;
-            }
-            if (discountList.get(discountCondition) == 0) {
-                continue;
-            }
-            outputView.printBenefitDetails(discountCondition, discountList.get(discountCondition));
-        }
-
+        int sum = memberBenefit.getTotalAppliedBenefit();
         outputView.printTotalBenefitPrice(sum);
 
-        if (discountList.get("증정 이벤트") != 0) {
-            outputView.printExpectedPayment(totalAmountBeforeDiscount - (sum - 25000));
-        } else {
-            outputView.printExpectedPayment(totalAmountBeforeDiscount - sum);
-        }
+        int finalAmount = memberBenefit.getTotalAppliedDiscount();
+        outputView.printExpectedPayment(totalAmountBeforeDiscount - finalAmount);
 
         Badge appliedBadge = Arrays.stream(Badge.values())
             .filter(badge -> badge.getMinimumLimit() <= sum)

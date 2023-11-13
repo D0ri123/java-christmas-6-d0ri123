@@ -9,7 +9,7 @@ public class FreebieService {
         this.freebies = freebies;
     }
 
-    public  Freebie provideFreebieByPrice(int price) {
+    public Freebie provideFreebieByPrice(int price) {
         return freebies.stream()
             .filter(freebie -> price >= freebie.getMinimumLimit())
             .findFirst()

@@ -23,7 +23,7 @@ public class Application {
         OutputView outputView = new OutputView();
 
         String inputDate = inputView.askExpectedVisitDate();
-        OrderDate date = new OrderDate(Integer.parseInt(inputDate));
+        OrderDate date = new OrderDate(inputDate);
 
         //주문 메뉴를 입력받아 OrderGroup에 메뉴와 개수를 저장한다.
         OrderGroup inputOrder = new OrderGroup(inputView.askOrderDetails());

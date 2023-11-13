@@ -2,8 +2,8 @@ package christmas.view;
 
 import static christmas.util.Constants.EVENT_MONTH;
 
-import christmas.model.DiscountService;
 import christmas.model.domain.Freebie;
+import christmas.model.domain.MemberDiscount;
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -86,12 +86,12 @@ public class OutputView {
         System.out.println(name);
     }
 
-    public void printBenefitDetails(List<DiscountService> discountServiceEvent, Freebie freebie) {
+    public void printBenefitDetails(List<MemberDiscount> discountServiceEvent, Freebie freebie) {
         if(discountServiceEvent.size() == 0) {
             printNoBenefit();
         }
-        for (DiscountService discountService : discountServiceEvent) {
-            printBenefitDetails(discountService.getEventName(), discountService.getAppliedPrice());
+        for (MemberDiscount memberDiscount : discountServiceEvent) {
+            printBenefitDetails(memberDiscount.getEventName(), memberDiscount.getAppliedPrice());
         }
         if (freebie != null) {
             printBenefitDetails("증정 이벤트", freebie.getPrice());

@@ -1,8 +1,8 @@
 package christmas.model.service;
 
-import christmas.model.DiscountService;
 import christmas.model.domain.Freebie;
 import christmas.model.domain.MemberBenefit;
+import christmas.model.domain.MemberDiscount;
 
 public class MemberBenefitService {
     private final MemberBenefit memberBenefit;
@@ -13,7 +13,7 @@ public class MemberBenefitService {
 
     public int getTotalAppliedBenefit() {
         int totalDiscount = memberBenefit.getAppliedDiscount().stream()
-            .mapToInt(DiscountService::getAppliedPrice)
+            .mapToInt(MemberDiscount::getAppliedPrice)
             .sum();
         int freebiePrice = memberBenefit.getFreebie().getPrice();
         return totalDiscount + freebiePrice;
@@ -21,7 +21,7 @@ public class MemberBenefitService {
 
     public int getTotalAppliedDiscount() {
         return memberBenefit.getAppliedDiscount().stream()
-            .mapToInt(DiscountService::getAppliedPrice)
+            .mapToInt(MemberDiscount::getAppliedPrice)
             .sum();
     }
 

@@ -4,7 +4,6 @@ import static christmas.util.Constants.EVENT_MONTH;
 
 import christmas.model.Discount;
 import christmas.model.Freebie;
-import christmas.model.MemberBenefit;
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -87,13 +86,11 @@ public class OutputView {
         System.out.println(name);
     }
 
-    public void printBenefitDetails(MemberBenefit memberBenefit) {
-        List<Discount> discountEvent = memberBenefit.getAppliedDiscount();
-        Freebie freebie = memberBenefit.getFreebie();
+    public void printBenefitDetails(List<Discount> discountEvent, Freebie freebie) {
         if(discountEvent.size() == 0) {
             printNoBenefit();
         }
-        for (Discount discount : memberBenefit.getAppliedDiscount()) {
+        for (Discount discount : discountEvent) {
             printBenefitDetails(discount.getEventName(), discount.getAppliedPrice());
         }
         if (freebie != null) {

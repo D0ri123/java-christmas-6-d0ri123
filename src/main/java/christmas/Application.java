@@ -1,7 +1,7 @@
 package christmas;
 
 import christmas.model.domain.Badge;
-import christmas.model.Discount;
+import christmas.model.DiscountService;
 import christmas.model.domain.Freebie;
 import christmas.model.service.FreebieService;
 import christmas.model.domain.MemberBenefit;
@@ -11,10 +11,10 @@ import christmas.model.service.MenuService;
 import christmas.model.domain.Order;
 import christmas.model.domain.OrderDate;
 import christmas.model.domain.OrderGroup;
-import christmas.model.SpecialDiscount;
-import christmas.model.WeekdayDiscount;
-import christmas.model.WeekendDiscount;
-import christmas.model.XmasDiscount;
+import christmas.model.SpecialDiscountService;
+import christmas.model.WeekdayDiscountService;
+import christmas.model.WeekendDiscountService;
+import christmas.model.XmasDiscountService;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.util.ArrayList;
@@ -55,11 +55,11 @@ public class Application {
         outputView.printFreebieMenu(freebie.getName());
 
         //적용되는 할인 조건이 적용가능한지 확인한다.
-        List<Discount> appliedBenefit = new ArrayList<>();
-        appliedBenefit.add(new XmasDiscount(date, inputOrder));
-        appliedBenefit.add(new SpecialDiscount(date, inputOrder));
-        appliedBenefit.add(new WeekdayDiscount(date, inputOrder));
-        appliedBenefit.add(new WeekendDiscount(date, inputOrder));
+        List<DiscountService> appliedBenefit = new ArrayList<>();
+        appliedBenefit.add(new XmasDiscountService(date, inputOrder));
+        appliedBenefit.add(new SpecialDiscountService(date, inputOrder));
+        appliedBenefit.add(new WeekdayDiscountService(date, inputOrder));
+        appliedBenefit.add(new WeekendDiscountService(date, inputOrder));
 
         //적용 가능한 조건들을 MemberDiscount에 저장한다.
         MemberBenefit memberBenefit = new MemberBenefit(appliedBenefit, freebie);

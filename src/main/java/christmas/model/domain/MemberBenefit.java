@@ -1,27 +1,27 @@
 package christmas.model.domain;
 
-import christmas.model.Discount;
+import christmas.model.DiscountService;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class MemberBenefit {
-    private final List<Discount> appliedDiscount;
+    private final List<DiscountService> appliedDiscountService;
     private final Freebie freebie;
 
-    public MemberBenefit(List<Discount> discounts, Freebie freebie) {
-        this.appliedDiscount = filterOnlyAppliedDiscount(discounts);
+    public MemberBenefit(List<DiscountService> discountServices, Freebie freebie) {
+        this.appliedDiscountService = filterOnlyAppliedDiscount(discountServices);
         this.freebie = freebie;
     }
 
-    private List<Discount> filterOnlyAppliedDiscount(List<Discount> discounts) {
-        return discounts.stream()
-            .filter(Discount::getApplicability)
+    private List<DiscountService> filterOnlyAppliedDiscount(List<DiscountService> discountServices) {
+        return discountServices.stream()
+            .filter(DiscountService::getApplicability)
             .filter(discount -> discount.getAppliedPrice() != 0)
             .collect(Collectors.toList());
     }
 
-    public List<Discount> getAppliedDiscount() {
-        return appliedDiscount;
+    public List<DiscountService> getAppliedDiscount() {
+        return appliedDiscountService;
     }
 
     public Freebie getFreebie() {

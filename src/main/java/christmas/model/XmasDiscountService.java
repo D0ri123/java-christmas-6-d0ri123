@@ -1,36 +1,27 @@
 package christmas.model;
 
-import static christmas.model.domain.Menu.Category.MAIN;
-
-import christmas.model.domain.Menu;
 import christmas.model.domain.OrderDate;
 import christmas.model.domain.OrderGroup;
-import java.util.ArrayList;
-import java.util.List;
 
-public class WeekendDiscount implements Discount {
-    private static final String eventName = "주말 할인";
-    private static final List<String> weekends = new ArrayList<>(List.of("FRIDAY", "SATURDAY"));
-
+public class XmasDiscountService implements DiscountService {
+    private static final String eventName = "크리스마스 디데이 할인";
     private final boolean applicability;
     private final int appliedPrice;
 
-    public WeekendDiscount(OrderDate orderDate, OrderGroup orders) {
+    public XmasDiscountService(OrderDate orderDate, OrderGroup orders) {
         this.applicability = canApplyDiscount(orderDate);
         this.appliedPrice = calculateDiscountAmount(orderDate, orders);
     }
 
     @Override
     public boolean canApplyDiscount(OrderDate orderDate) {
-        return weekends.contains(orderDate.getDay());
+        int date = orderDate.getDate();
+        return date >= 1 && date <= 25;
     }
 
     @Override
     public int calculateDiscountAmount(OrderDate orderDate, OrderGroup orders) {
-        int discountedMenu = orders.getOrders().stream()
-            .mapToInt(order -> Menu.countMenu(MAIN, order.getMenu()) * order.getQuantity())
-            .sum();
-        return discountedMenu * 2023;
+        return 1000 + ((orderDate.getDate() - 1) * 100);
     }
 
     @Override
@@ -47,5 +38,4 @@ public class WeekendDiscount implements Discount {
     public String getEventName() {
         return eventName;
     }
-
 }

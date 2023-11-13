@@ -1,5 +1,8 @@
 package christmas.model;
 
+import christmas.model.domain.OrderDate;
+import christmas.model.domain.OrderGroup;
+
 public class XmasDiscount implements Discount {
     private static final String eventName = "크리스마스 디데이 할인";
     private final boolean applicability;

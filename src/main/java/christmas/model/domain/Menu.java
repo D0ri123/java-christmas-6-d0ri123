@@ -1,9 +1,9 @@
-package christmas.model;
+package christmas.model.domain;
 
-import static christmas.model.Menu.Category.APPETIZER;
-import static christmas.model.Menu.Category.BEVERAGE;
-import static christmas.model.Menu.Category.DESSERT;
-import static christmas.model.Menu.Category.MAIN;
+import static christmas.model.domain.Menu.Category.APPETIZER;
+import static christmas.model.domain.Menu.Category.BEVERAGE;
+import static christmas.model.domain.Menu.Category.DESSERT;
+import static christmas.model.domain.Menu.Category.MAIN;
 
 import java.util.Arrays;
 import java.util.List;

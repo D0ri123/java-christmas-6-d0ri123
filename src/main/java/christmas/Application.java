@@ -1,13 +1,16 @@
 package christmas;
 
-import christmas.model.Badge;
+import christmas.model.domain.Badge;
 import christmas.model.Discount;
-import christmas.model.Freebie;
-import christmas.model.MemberBenefit;
-import christmas.model.Menu;
-import christmas.model.Order;
-import christmas.model.OrderDate;
-import christmas.model.OrderGroup;
+import christmas.model.domain.Freebie;
+import christmas.model.service.FreebieService;
+import christmas.model.domain.MemberBenefit;
+import christmas.model.service.MemberBenefitService;
+import christmas.model.domain.Menu;
+import christmas.model.service.MenuService;
+import christmas.model.domain.Order;
+import christmas.model.domain.OrderDate;
+import christmas.model.domain.OrderGroup;
 import christmas.model.SpecialDiscount;
 import christmas.model.WeekdayDiscount;
 import christmas.model.WeekendDiscount;
@@ -38,14 +41,16 @@ public class Application {
 
         //할인되기 전의 총 가격을 구한다.
         outputView.printTotalAmountBeforeDiscount();
+        MenuService menuService = new MenuService(Menu.getAllMenus());
         int totalAmountBeforeDiscount = 0;
         for (Order order : inputOrder.getOrders()) {
-            totalAmountBeforeDiscount += Menu.getPriceWithFoodNameCondition(order.getMenu()) * order.getQuantity();
+            totalAmountBeforeDiscount += menuService.getPriceWithFoodNameCondition(order.getMenu()) * order.getQuantity();
         }
         outputView.printTotalAmountFormatting(totalAmountBeforeDiscount);
 
         // 할인되기 전의 총 가격에 따른 증정품을 가져온다.
-        Freebie freebie = Freebie.provideFreebieByPrice(totalAmountBeforeDiscount);
+        FreebieService freebieService = new FreebieService(Freebie.getAllFreebies());
+        Freebie freebie = freebieService.provideFreebieByPrice(totalAmountBeforeDiscount);
         outputView.printFreebieMenuTitle();
         outputView.printFreebieMenu(freebie.getName());
 
@@ -58,14 +63,15 @@ public class Application {
 
         //적용 가능한 조건들을 MemberDiscount에 저장한다.
         MemberBenefit memberBenefit = new MemberBenefit(appliedBenefit, freebie);
+        MemberBenefitService memberBenefitService = new MemberBenefitService(memberBenefit);
 
         outputView.printBenefitLogTitle();
-        outputView.printBenefitDetails(memberBenefit);
+        outputView.printBenefitDetails(memberBenefit.getAppliedDiscount(), memberBenefitService.getFreebieOrNull());
 
-        int sum = memberBenefit.getTotalAppliedBenefit();
+        int sum = memberBenefitService.getTotalAppliedBenefit();
         outputView.printTotalBenefitPrice(sum);
 
-        int finalAmount = memberBenefit.getTotalAppliedDiscount();
+        int finalAmount = memberBenefitService.getTotalAppliedDiscount();
         outputView.printExpectedPayment(totalAmountBeforeDiscount - finalAmount);
 
         Badge appliedBadge = Arrays.stream(Badge.values())

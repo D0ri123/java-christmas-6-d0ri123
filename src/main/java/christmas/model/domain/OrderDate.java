@@ -1,4 +1,4 @@
-package christmas.model;
+package christmas.model.domain;
 
 import static christmas.util.Constants.*;
 
@@ -18,10 +18,6 @@ public class OrderDate {
         LocalDate localDate = LocalDate.of(LocalDate.now().getYear(), EVENT_MONTH, date);
         DayOfWeek dayOfWeek = localDate.getDayOfWeek();
         return dayOfWeek.toString();
-    }
-
-    public int countDiscountDays() {
-        return date - 1;
     }
 
     public int getDate() {

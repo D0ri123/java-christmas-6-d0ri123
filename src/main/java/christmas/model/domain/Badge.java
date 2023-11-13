@@ -1,4 +1,4 @@
-package christmas.model;
+package christmas.model.domain;
 
 public enum Badge {
     SANTA(20_000, "산타"),

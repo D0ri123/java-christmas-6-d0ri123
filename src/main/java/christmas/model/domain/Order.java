@@ -1,4 +1,4 @@
-package christmas.model;
+package christmas.model.domain;
 
 public class Order {
 

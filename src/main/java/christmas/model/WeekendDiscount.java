@@ -1,7 +1,10 @@
 package christmas.model;
 
-import static christmas.model.Menu.Category.MAIN;
+import static christmas.model.domain.Menu.Category.MAIN;
 
+import christmas.model.domain.Menu;
+import christmas.model.domain.OrderDate;
+import christmas.model.domain.OrderGroup;
 import java.util.ArrayList;
 import java.util.List;
 

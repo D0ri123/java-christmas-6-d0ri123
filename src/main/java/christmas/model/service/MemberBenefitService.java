@@ -1,4 +1,8 @@
-package christmas.model;
+package christmas.model.service;
+
+import christmas.model.Discount;
+import christmas.model.domain.Freebie;
+import christmas.model.domain.MemberBenefit;
 
 public class MemberBenefitService {
     private final MemberBenefit memberBenefit;

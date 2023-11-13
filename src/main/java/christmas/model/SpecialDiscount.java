@@ -1,5 +1,7 @@
 package christmas.model;
 
+import christmas.model.domain.OrderDate;
+import christmas.model.domain.OrderGroup;
 import java.util.ArrayList;
 import java.util.List;
 

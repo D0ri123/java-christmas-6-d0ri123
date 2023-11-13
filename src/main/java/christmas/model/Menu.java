@@ -6,6 +6,7 @@ import static christmas.model.Menu.Category.DESSERT;
 import static christmas.model.Menu.Category.MAIN;
 
 import java.util.Arrays;
+import java.util.List;
 
 public enum Menu {
     MUSHROOM_SOUP(APPETIZER, "양송이수프", 6_000),
@@ -45,23 +46,20 @@ public enum Menu {
     public int getPrice() {
         return price;
     }
+
     public Category getCategory() {
         return category;
     }
 
-    public static int getPriceWithFoodNameCondition(String foodName) {
-        return Arrays.stream(Menu.values())
-            .filter(menu -> menu.getName().equals(foodName))
-            .findFirst()
-            .map(Menu::getPrice)
-            .orElseThrow(() -> new IllegalArgumentException("찾는 음식이 없습니다."));
+    public static List<Menu> getAllMenus() {
+        return Arrays.stream(Menu.values()).toList();
     }
 
+    //TODO: 서비스로 옮기기
     public static int countMenu(Category category, String foodName) {
         return (int) Arrays.stream(Menu.values())
             .filter(menu -> menu.getName().equals(foodName))
             .filter(menu -> menu.getCategory().equals(category))
             .count();
     }
-
 }

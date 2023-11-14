@@ -54,7 +54,7 @@ public class Application {
         outputView.printFreebieMenuTitle();
         outputView.printFreebieMenu(freebie.getName());
 
-        DiscountFactory.init(date, inputOrder);
+        DiscountFactory.init(date, inputOrder, totalAmountBeforeDiscount);
         List<MemberDiscount> appliedDiscounts = DiscountFactory.getMemberDiscounts();
 
         //적용 가능한 조건들을 MemberDiscount에 저장한다.

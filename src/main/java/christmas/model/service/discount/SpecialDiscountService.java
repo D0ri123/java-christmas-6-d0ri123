@@ -10,9 +10,11 @@ public class SpecialDiscountService implements DiscountService {
     private static final List<Integer> specialDays = new ArrayList<>(List.of(3,10,17,24,25,31));
 
     private final OrderDate orderDate;
+    private final int price;
 
-    public SpecialDiscountService(OrderDate orderDate) {
+    public SpecialDiscountService(OrderDate orderDate, int price) {
         this.orderDate = orderDate;
+        this.price = price;
     }
 
     @Override
@@ -22,7 +24,7 @@ public class SpecialDiscountService implements DiscountService {
 
     @Override
     public int calculateDiscountAmount() {
-        if(canApplyDiscount()) {
+        if (canApplyDiscount() && price >= 10_000) {
             return 1000;
         }
         return 0;

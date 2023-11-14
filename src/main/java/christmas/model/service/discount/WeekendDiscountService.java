@@ -15,10 +15,12 @@ public class WeekendDiscountService implements DiscountService {
 
     private final OrderDate orderDate;
     private final OrderGroup orders;
+    private final int price;
 
-    public WeekendDiscountService(OrderDate orderDate, OrderGroup orders) {
+    public WeekendDiscountService(OrderDate orderDate, OrderGroup orders, int price) {
         this.orderDate = orderDate;
         this.orders = orders;
+        this.price = price;
     }
 
     @Override
@@ -28,7 +30,7 @@ public class WeekendDiscountService implements DiscountService {
 
     @Override
     public int calculateDiscountAmount() {
-        if(canApplyDiscount()) {
+        if (canApplyDiscount() && price >= 10_000) {
             int discountedMenu = orders.getOrders().stream()
                 .mapToInt(order -> Menu.countMenu(MAIN, order.getMenu()) * order.getQuantity())
                 .sum();

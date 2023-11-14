@@ -1,5 +1,6 @@
 package christmas.model.domain;
 
+import christmas.model.freebie.Freebie;
 import java.util.List;
 import java.util.stream.Collectors;
 

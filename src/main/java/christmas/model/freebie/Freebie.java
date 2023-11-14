@@ -1,4 +1,4 @@
-package christmas.model.domain;
+package christmas.model.freebie;
 
 import java.util.Arrays;
 import java.util.List;

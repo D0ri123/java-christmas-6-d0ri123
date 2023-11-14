@@ -1,6 +1,5 @@
-package christmas.model.service;
+package christmas.model.freebie;
 
-import christmas.model.domain.Freebie;
 import java.util.List;
 
 public class FreebieService {

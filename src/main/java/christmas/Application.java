@@ -2,11 +2,11 @@ package christmas;
 
 import christmas.model.date.OrderDateService;
 import christmas.model.ordergroup.OrderGroupService;
+import christmas.model.badge.BadgeService;
 import christmas.model.service.discount.DiscountFactory;
-import christmas.model.domain.Badge;
-import christmas.model.domain.Freebie;
+import christmas.model.freebie.Freebie;
 import christmas.model.domain.MemberDiscount;
-import christmas.model.service.FreebieService;
+import christmas.model.freebie.FreebieService;
 import christmas.model.domain.MemberBenefit;
 import christmas.model.service.MemberBenefitService;
 import christmas.model.service.MenuService;
@@ -15,7 +15,6 @@ import christmas.model.date.OrderDate;
 import christmas.model.ordergroup.OrderGroup;
 import christmas.view.InputView;
 import christmas.view.OutputView;
-import java.util.Arrays;
 import java.util.List;
 
 public class Application {
@@ -70,10 +69,7 @@ public class Application {
         int finalAmount = memberBenefitService.getTotalAppliedDiscount();
         outputView.printExpectedPayment(totalAmountBeforeDiscount - finalAmount);
 
-        Badge appliedBadge = Arrays.stream(Badge.values())
-            .filter(badge -> badge.getMinimumLimit() <= sum)
-            .findFirst()
-            .orElseThrow(() -> new IllegalArgumentException("해당하는 뱃지가 없습니다."));
-        outputView.printBadge(appliedBadge.getName());
+        BadgeService badgeService = new BadgeService();
+        outputView.printBadge(badgeService.getBadgeByTotalPrice(sum));
     }
 }

@@ -2,7 +2,7 @@ package christmas.view;
 
 import static christmas.util.Constants.EVENT_MONTH;
 
-import christmas.model.domain.Freebie;
+import christmas.model.freebie.Freebie;
 import christmas.model.domain.MemberDiscount;
 import java.text.DecimalFormat;
 import java.util.List;

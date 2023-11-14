@@ -55,11 +55,4 @@ public enum Menu {
         return Arrays.stream(Menu.values()).toList();
     }
 
-    //TODO: 서비스로 옮기기
-    public static int countMenu(Category category, String foodName) {
-        return (int) Arrays.stream(Menu.values())
-            .filter(menu -> menu.getName().equals(foodName))
-            .filter(menu -> menu.getCategory().equals(category))
-            .count();
-    }
 }

@@ -1,7 +1,7 @@
 package christmas.model.service.discount;
 
 import christmas.model.domain.MemberDiscount;
-import christmas.model.domain.OrderDate;
+import christmas.model.date.OrderDate;
 
 public class XmasDiscountService implements DiscountService {
     private static final String eventName = "크리스마스 디데이 할인";

@@ -1,7 +1,7 @@
 package christmas.model.service.discount;
 
 import christmas.model.domain.MemberDiscount;
-import christmas.model.domain.OrderDate;
+import christmas.model.date.OrderDate;
 import java.util.ArrayList;
 import java.util.List;
 

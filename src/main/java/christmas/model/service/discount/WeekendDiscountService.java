@@ -4,8 +4,8 @@ import static christmas.model.domain.Menu.Category.MAIN;
 
 import christmas.model.domain.MemberDiscount;
 import christmas.model.domain.Menu;
-import christmas.model.domain.OrderDate;
-import christmas.model.domain.OrderGroup;
+import christmas.model.date.OrderDate;
+import christmas.model.ordergroup.OrderGroup;
 import java.util.ArrayList;
 import java.util.List;
 

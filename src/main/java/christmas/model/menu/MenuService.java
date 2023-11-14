@@ -1,7 +1,6 @@
-package christmas.model.service;
+package christmas.model.menu;
 
-import christmas.model.domain.Menu;
-import christmas.model.domain.Menu.Category;
+import christmas.model.menu.Menu.Category;
 import java.util.List;
 
 public class MenuService {

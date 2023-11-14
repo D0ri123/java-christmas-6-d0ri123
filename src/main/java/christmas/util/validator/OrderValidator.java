@@ -1,6 +1,6 @@
 package christmas.util.validator;
 
-import christmas.model.domain.Menu;
+import christmas.model.menu.Menu;
 
 public class OrderValidator {
 

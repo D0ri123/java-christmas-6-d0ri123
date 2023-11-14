@@ -1,9 +1,9 @@
 package christmas.model.service.discount;
 
-import static christmas.model.domain.Menu.Category.MAIN;
+import static christmas.model.menu.Menu.Category.MAIN;
 
 import christmas.model.domain.MemberDiscount;
-import christmas.model.domain.Menu;
+import christmas.model.menu.Menu;
 import christmas.model.date.OrderDate;
 import christmas.model.ordergroup.OrderGroup;
 import java.util.ArrayList;

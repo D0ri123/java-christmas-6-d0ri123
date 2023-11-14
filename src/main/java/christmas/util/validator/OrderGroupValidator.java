@@ -1,8 +1,8 @@
 package christmas.util.validator;
 
-import christmas.model.domain.Menu.Category;
+import christmas.model.menu.Menu.Category;
 import christmas.model.order.Order;
-import christmas.model.service.MenuService;
+import christmas.model.menu.MenuService;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

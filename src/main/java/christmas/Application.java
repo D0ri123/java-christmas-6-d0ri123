@@ -9,7 +9,7 @@ import christmas.model.domain.MemberDiscount;
 import christmas.model.freebie.FreebieService;
 import christmas.model.domain.MemberBenefit;
 import christmas.model.service.MemberBenefitService;
-import christmas.model.service.MenuService;
+import christmas.model.menu.MenuService;
 import christmas.model.order.Order;
 import christmas.model.date.OrderDate;
 import christmas.model.ordergroup.OrderGroup;

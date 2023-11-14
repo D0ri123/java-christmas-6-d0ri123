@@ -3,9 +3,9 @@ package christmas.model.badge;
 import java.util.List;
 
 public class BadgeService {
-    private final List<Badge> badges = Badge.getAllBadges();
+    private static final List<Badge> badges = Badge.getAllBadges();
 
-    public String getBadgeByTotalPrice(int totalPrice) {
+    public static String getBadgeByTotalPrice(int totalPrice) {
         return badges.stream()
             .filter(badge -> badge.getMinimumLimit() <= totalPrice)
             .findFirst()

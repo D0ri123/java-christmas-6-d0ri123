@@ -11,7 +11,7 @@ public class MenuService {
             .filter(menu -> menu.getName().equals(foodName))
             .findFirst()
             .map(Menu::getPrice)
-            .orElseThrow(() -> new IllegalArgumentException("찾는 음식이 없습니다."));
+            .orElseThrow(() -> new IllegalArgumentException("[ERROR] 요청한 메뉴를 찾을 수 없습니다."));
     }
 
     public static Category findCategory(String foodName) {
@@ -19,10 +19,10 @@ public class MenuService {
             .filter(menu -> menu.getName().equals(foodName))
             .findFirst()
             .map(Menu::getCategory)
-            .orElseThrow(() -> new IllegalArgumentException("찾는 음식이 없습니다."));
+            .orElseThrow(() -> new IllegalArgumentException("[ERROR] 요청한 메뉴를 찾을 수 없습니다."));
     }
 
-    public static int countMenuByCategory(Category category, String foodName) {
+    public static int getMenuWithCategory(Category category, String foodName) {
         return (int) menus.stream()
             .filter(menu -> menu.getName().equals(foodName))
             .filter(menu -> menu.getCategory().equals(category))

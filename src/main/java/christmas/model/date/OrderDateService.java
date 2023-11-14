@@ -30,4 +30,8 @@ public class OrderDateService {
         return orderDate;
     }
 
+    public int getVisitDate() {
+        return orderDate.getDate();
+    }
+
 }

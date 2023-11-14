@@ -22,7 +22,7 @@ public class DateValidator {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            throw new NumberFormatException("[ERROR] 숫자만 입력해야 합니다. 다시 입력해 주세요.");
+            throw new NumberFormatException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
         }
     }
 

@@ -1,5 +1,6 @@
 package christmas.model.ordergroup;
 
+import christmas.model.menu.MenuService;
 import christmas.model.order.Order;
 import christmas.model.order.OrderService;
 import christmas.util.validator.OrderGroupValidator;
@@ -24,7 +25,17 @@ public class OrderGroupService {
         return new OrderGroup(orders);
     }
 
+    public int calculateTotalPrice() {
+        return orders.getOrders().stream()
+            .mapToInt(order -> MenuService.getPriceWithFoodNameCondition(order.getMenu()) * order.getQuantity())
+            .sum();
+    }
+
     public OrderGroup getOrders() {
         return orders;
+    }
+
+    public List<Order> getOrderList() {
+        return orders.getOrders();
     }
 }

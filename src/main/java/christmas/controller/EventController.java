@@ -6,6 +6,7 @@ import christmas.model.date.OrderDateService;
 import christmas.model.discount.DiscountFactory;
 import christmas.model.freebie.FreebieService;
 import christmas.model.ordergroup.OrderGroupService;
+import christmas.util.Retry;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
@@ -22,6 +23,7 @@ public class EventController {
     }
 
     public void progressReservation() {
+        start();
         getVisitDate();
         orderMenu();
         previewBenefits();
@@ -34,14 +36,22 @@ public class EventController {
         previewBadge();
     }
 
+    private void start() {
+        inputView.start();
+    }
+
     private void getVisitDate() {
-        String inputDate = inputView.askExpectedVisitDate();
-        orderDateService = new OrderDateService(inputDate);
+        orderDateService = Retry.retryOnException(() -> {
+            String inputDate = inputView.askExpectedVisitDate();
+            return new OrderDateService(inputDate);
+        });
     }
 
     private void orderMenu() {
-        String orderMenu = inputView.askOrderDetails();
-        orderGroupService = new OrderGroupService(orderMenu);
+        orderGroupService = Retry.retryOnException(() -> {
+            String menu = inputView.askOrderDetails();
+            return new OrderGroupService(menu);
+        });
     }
 
     private void previewBenefits() {

@@ -3,7 +3,6 @@ package christmas.model.order;
 import java.util.Objects;
 
 public class Order {
-
     private final String menu;
     private final int quantity;
 

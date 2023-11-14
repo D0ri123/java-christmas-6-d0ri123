@@ -2,8 +2,8 @@ package christmas.model.discount;
 
 import static christmas.model.menu.Menu.Category.MAIN;
 
-import christmas.model.menu.Menu;
 import christmas.model.date.OrderDate;
+import christmas.model.menu.MenuService;
 import christmas.model.ordergroup.OrderGroup;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class WeekendDiscountService implements DiscountService {
     public int calculateDiscountAmount() {
         if (canApplyDiscount() && price >= 10_000) {
             int discountedMenu = orders.getOrders().stream()
-                .mapToInt(order -> Menu.countMenu(MAIN, order.getMenu()) * order.getQuantity())
+                .mapToInt(order -> MenuService.countMenuByCategory(MAIN, order.getMenu()) * order.getQuantity())
                 .sum();
             return discountedMenu * 2023;
         }

@@ -6,7 +6,7 @@ import java.util.List;
 public class MenuService {
     private static final List<Menu> menus = Menu.getAllMenus();
 
-    public int getPriceWithFoodNameCondition(String foodName) {
+    public static int getPriceWithFoodNameCondition(String foodName) {
         return menus.stream()
             .filter(menu -> menu.getName().equals(foodName))
             .findFirst()

@@ -4,6 +4,7 @@ import static christmas.util.Constants.EVENT_MONTH;
 
 import christmas.model.freebie.Freebie;
 import christmas.model.discount.MemberDiscount;
+import christmas.model.order.Order;
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -29,8 +30,10 @@ public class OutputView {
         System.out.println(orderMenuTitle);
     }
 
-    public void printOrderSummary(String menu, int quantity) {
-        System.out.printf(orderSummary, menu, quantity);
+    public void printOrderSummary(List<Order> orders) {
+        for(Order order : orders) {
+            System.out.printf(orderSummary, order.getMenu(), order.getQuantity());
+        }
     }
 
     public void printTotalAmountBeforeDiscount() {

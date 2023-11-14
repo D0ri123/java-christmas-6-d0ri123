@@ -35,9 +35,7 @@ public class Application {
         outputView.previewEventBenefits(date.getDate());
 
         outputView.printOrderMenuTitle();
-        for (Order order : inputOrder.getOrders()) {
-            outputView.printOrderSummary(order.getMenu(), order.getQuantity());
-        }
+        outputView.printOrderSummary(inputOrder.getOrders());
 
         //할인되기 전의 총 가격을 구한다.
         outputView.printTotalAmountBeforeDiscount();

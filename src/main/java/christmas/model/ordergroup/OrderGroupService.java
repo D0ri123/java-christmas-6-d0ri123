@@ -20,8 +20,7 @@ public class OrderGroupService {
             OrderService orderService = new OrderService(menu);
             orders.add(orderService.getOrder());
         }
-        OrderGroupValidator.validateDuplicateMenu(orders);
-        OrderGroupValidator.validateMaxOrderQuantity(orders);
+        OrderGroupValidator.validateOrderGroup(orders);
         return new OrderGroup(orders);
     }
 

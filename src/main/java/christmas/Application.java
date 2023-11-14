@@ -1,5 +1,7 @@
 package christmas;
 
+import christmas.model.date.OrderDateService;
+import christmas.model.ordergroup.OrderGroupService;
 import christmas.model.service.discount.DiscountFactory;
 import christmas.model.domain.Badge;
 import christmas.model.domain.Freebie;
@@ -7,11 +9,10 @@ import christmas.model.domain.MemberDiscount;
 import christmas.model.service.FreebieService;
 import christmas.model.domain.MemberBenefit;
 import christmas.model.service.MemberBenefitService;
-import christmas.model.domain.Menu;
 import christmas.model.service.MenuService;
-import christmas.model.domain.Order;
-import christmas.model.domain.OrderDate;
-import christmas.model.domain.OrderGroup;
+import christmas.model.order.Order;
+import christmas.model.date.OrderDate;
+import christmas.model.ordergroup.OrderGroup;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.util.Arrays;
@@ -23,10 +24,14 @@ public class Application {
         OutputView outputView = new OutputView();
 
         String inputDate = inputView.askExpectedVisitDate();
-        OrderDate date = new OrderDate(inputDate);
+        OrderDateService orderDateService = new OrderDateService(inputDate);
+        OrderDate date = orderDateService.getOrderDate();
 
         //주문 메뉴를 입력받아 OrderGroup에 메뉴와 개수를 저장한다.
-        OrderGroup inputOrder = new OrderGroup(inputView.askOrderDetails());
+        String orderMenu = inputView.askOrderDetails();
+        OrderGroupService orderGroupService = new OrderGroupService(orderMenu);
+        MenuService menuService = new MenuService();
+        OrderGroup inputOrder = orderGroupService.getOrders();
 
         outputView.previewEventBenefits(date.getDate());
 
@@ -37,7 +42,6 @@ public class Application {
 
         //할인되기 전의 총 가격을 구한다.
         outputView.printTotalAmountBeforeDiscount();
-        MenuService menuService = new MenuService(Menu.getAllMenus());
         int totalAmountBeforeDiscount = 0;
         for (Order order : inputOrder.getOrders()) {
             totalAmountBeforeDiscount += menuService.getPriceWithFoodNameCondition(order.getMenu()) * order.getQuantity();

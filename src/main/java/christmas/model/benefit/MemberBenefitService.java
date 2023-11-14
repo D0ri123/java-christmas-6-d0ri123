@@ -3,12 +3,20 @@ package christmas.model.benefit;
 import christmas.model.freebie.Freebie;
 import christmas.model.discount.MemberDiscount;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MemberBenefitService {
     private final MemberBenefit memberBenefit;
 
     public MemberBenefitService(List<MemberDiscount> discountServices, Freebie freebie) {
-        this.memberBenefit = new MemberBenefit(discountServices, freebie);
+        List<MemberDiscount> memberDiscounts = filterOnlyAppliedDiscount(discountServices);
+        this.memberBenefit = new MemberBenefit(memberDiscounts, freebie);
+    }
+
+    private List<MemberDiscount> filterOnlyAppliedDiscount(List<MemberDiscount> discountServices) {
+        return discountServices.stream()
+            .filter(discount -> discount.getAppliedPrice() != 0)
+            .collect(Collectors.toList());
     }
 
     public int getTotalAppliedBenefit() {

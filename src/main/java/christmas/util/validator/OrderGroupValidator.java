@@ -27,8 +27,8 @@ public class OrderGroupValidator {
     }
 
     private static void validateDuplicateMenu(List<Order> orders) {
-        Set<Order> orderSet = new HashSet<>(orders);
-        if (orders.size() != orderSet.size()) {
+        Set<Order> distinctOrders = new HashSet<>(orders);
+        if (orders.size() != distinctOrders.size()) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }

@@ -4,8 +4,9 @@ import christmas.model.menu.MenuService;
 import christmas.model.order.Order;
 import christmas.model.order.OrderService;
 import christmas.util.validator.OrderGroupValidator;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class OrderGroupService {
     private final OrderGroup orders;
@@ -15,14 +16,18 @@ public class OrderGroupService {
     }
 
     private OrderGroup generateOrderGroup(String orderMenu) {
-        List<Order> orders = new ArrayList<>();
         OrderGroupValidator.validateInputTemplate(orderMenu);
-        for (String menu : orderMenu.split(",")) {
-            OrderService orderService = new OrderService(menu);
-            orders.add(orderService.getOrder());
-        }
-        OrderGroupValidator.validateOrderGroup(orders);
-        return new OrderGroup(orders);
+
+        List<Order> processedOrder = processOrderMenu(orderMenu);
+
+        OrderGroupValidator.validateOrderGroup(processedOrder);
+        return new OrderGroup(processedOrder);
+    }
+
+    private List<Order> processOrderMenu(String orderMenu) {
+        return Arrays.stream(orderMenu.split(","))
+            .map(menu -> new OrderService(menu).getOrder())
+            .collect(Collectors.toList());
     }
 
     public int calculateTotalPrice() {

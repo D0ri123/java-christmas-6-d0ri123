@@ -1,6 +1,5 @@
-package christmas.model.service.discount;
+package christmas.model.discount;
 
-import christmas.model.domain.MemberDiscount;
 import christmas.model.date.OrderDate;
 import christmas.model.ordergroup.OrderGroup;
 import java.util.HashSet;

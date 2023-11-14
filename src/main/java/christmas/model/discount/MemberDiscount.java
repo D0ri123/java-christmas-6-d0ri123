@@ -1,4 +1,4 @@
-package christmas.model.domain;
+package christmas.model.discount;
 
 public class MemberDiscount {
     private final String discountEvent;

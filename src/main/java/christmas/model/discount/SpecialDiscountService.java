@@ -1,29 +1,30 @@
-package christmas.model.service.discount;
+package christmas.model.discount;
 
-import christmas.model.domain.MemberDiscount;
 import christmas.model.date.OrderDate;
+import java.util.ArrayList;
+import java.util.List;
 
-public class XmasDiscountService implements DiscountService {
-    private static final String eventName = "크리스마스 디데이 할인";
+public class SpecialDiscountService implements DiscountService {
+    private static final String eventName = "특별 할인";
+    private static final List<Integer> specialDays = new ArrayList<>(List.of(3,10,17,24,25,31));
 
     private final OrderDate orderDate;
     private final int price;
 
-    public XmasDiscountService(OrderDate orderDate, int price) {
+    public SpecialDiscountService(OrderDate orderDate, int price) {
         this.orderDate = orderDate;
         this.price = price;
     }
 
     @Override
     public boolean canApplyDiscount() {
-        int date = orderDate.getDate();
-        return date >= 1 && date <= 25;
+        return specialDays.contains(orderDate.getDate());
     }
 
     @Override
     public int calculateDiscountAmount() {
         if (canApplyDiscount() && price >= 10_000) {
-            return 1000 + ((orderDate.getDate() - 1) * 100);
+            return 1000;
         }
         return 0;
     }

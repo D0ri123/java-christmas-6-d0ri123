@@ -1,23 +1,23 @@
-package christmas.model.service.discount;
+package christmas.model.discount;
 
-import static christmas.model.menu.Menu.Category.MAIN;
+import static christmas.model.menu.Menu.Category.*;
 
-import christmas.model.domain.MemberDiscount;
 import christmas.model.menu.Menu;
 import christmas.model.date.OrderDate;
 import christmas.model.ordergroup.OrderGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WeekendDiscountService implements DiscountService {
-    private static final String eventName = "주말 할인";
-    private static final List<String> weekends = new ArrayList<>(List.of("FRIDAY", "SATURDAY"));
+public class WeekdayDiscountService implements DiscountService {
+    private static final String eventName = "평일 할인";
+    private static final List<String> weekdays = new ArrayList<>(
+        List.of("MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "SUNDAY"));
 
     private final OrderDate orderDate;
     private final OrderGroup orders;
     private final int price;
 
-    public WeekendDiscountService(OrderDate orderDate, OrderGroup orders, int price) {
+    public WeekdayDiscountService(OrderDate orderDate, OrderGroup orders, int price) {
         this.orderDate = orderDate;
         this.orders = orders;
         this.price = price;
@@ -25,14 +25,14 @@ public class WeekendDiscountService implements DiscountService {
 
     @Override
     public boolean canApplyDiscount() {
-        return weekends.contains(orderDate.getDay());
+        return weekdays.contains(orderDate.getDay());
     }
 
     @Override
     public int calculateDiscountAmount() {
         if (canApplyDiscount() && price >= 10_000) {
             int discountedMenu = orders.getOrders().stream()
-                .mapToInt(order -> Menu.countMenu(MAIN, order.getMenu()) * order.getQuantity())
+                .mapToInt(order -> Menu.countMenu(DESSERT, order.getMenu()) * order.getQuantity())
                 .sum();
             return discountedMenu * 2023;
         }

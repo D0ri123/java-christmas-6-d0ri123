@@ -1,6 +1,4 @@
-package christmas.model.service.discount;
-
-import christmas.model.domain.MemberDiscount;
+package christmas.model.discount;
 
 public interface DiscountService {
     boolean canApplyDiscount();

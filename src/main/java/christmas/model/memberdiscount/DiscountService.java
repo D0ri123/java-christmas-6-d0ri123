@@ -1,4 +1,4 @@
-package christmas.model.discount;
+package christmas.model.memberdiscount;
 
 public interface DiscountService {
     boolean canApplyDiscount();

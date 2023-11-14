@@ -1,4 +1,4 @@
-package christmas.model.date;
+package christmas.model.orderdate;
 
 public class OrderDate {
     private final int date;

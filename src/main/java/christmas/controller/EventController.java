@@ -1,9 +1,9 @@
 package christmas.controller;
 
 import christmas.model.badge.BadgeService;
-import christmas.model.benefit.MemberBenefitService;
-import christmas.model.date.OrderDateService;
-import christmas.model.discount.DiscountFactory;
+import christmas.model.memberbenefit.MemberBenefitService;
+import christmas.model.orderdate.OrderDateService;
+import christmas.model.memberdiscount.DiscountFactory;
 import christmas.model.freebie.FreebieService;
 import christmas.model.ordergroup.OrderGroupService;
 import christmas.util.Retry;

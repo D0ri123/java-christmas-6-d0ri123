@@ -1,7 +1,7 @@
-package christmas.model.benefit;
+package christmas.model.memberbenefit;
 
 import christmas.model.freebie.Freebie;
-import christmas.model.discount.MemberDiscount;
+import christmas.model.memberdiscount.MemberDiscount;
 import java.util.List;
 import java.util.stream.Collectors;
 

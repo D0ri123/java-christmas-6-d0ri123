@@ -1,6 +1,6 @@
-package christmas.model.discount;
+package christmas.model.memberdiscount;
 
-import christmas.model.date.OrderDate;
+import christmas.model.orderdate.OrderDate;
 import java.util.ArrayList;
 import java.util.List;
 

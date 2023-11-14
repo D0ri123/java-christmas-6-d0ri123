@@ -1,6 +1,6 @@
-package christmas.model.discount;
+package christmas.model.memberdiscount;
 
-import christmas.model.date.OrderDate;
+import christmas.model.orderdate.OrderDate;
 
 public class XmasDiscountService implements DiscountService {
     private static final String eventName = "크리스마스 디데이 할인";

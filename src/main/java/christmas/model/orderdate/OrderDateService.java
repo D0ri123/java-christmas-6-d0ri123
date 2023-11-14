@@ -1,4 +1,4 @@
-package christmas.model.date;
+package christmas.model.orderdate;
 
 import static christmas.util.Constants.EVENT_MONTH;
 

@@ -32,7 +32,7 @@ public class WeekdayDiscountService implements DiscountService {
     public int calculateDiscountAmount() {
         if (canApplyDiscount() && price >= 10_000) {
             int discountedMenu = orders.getOrders().stream()
-                .mapToInt(order -> MenuService.countMenuByCategory(DESSERT, order.getMenu()) * order.getQuantity())
+                .mapToInt(order -> MenuService.getMenuWithCategory(DESSERT, order.getMenu()) * order.getQuantity())
                 .sum();
             return discountedMenu * 2023;
         }

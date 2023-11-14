@@ -49,6 +49,23 @@ class WeekdayDiscountServiceTest {
         assertEquals(2023, discountPrice/2);
     }
 
+    @Test
+    void 주문금액이_10000원보다_작은_경우_할인이_적용되지_않는다() {
+        //given
+        OrderDateService orderDateService = new OrderDateService("3");
+        OrderGroupService orderGroupService = new OrderGroupService("아이스크림-1,제로콜라-1");
+        WeekdayDiscountService weekdayDiscountService = new WeekdayDiscountService(
+                orderDateService.getOrderDate(),
+                orderGroupService.getOrders(),
+                orderGroupService.calculateTotalPrice());
+
+        //when
+        int discountPrice = weekdayDiscountService.calculateDiscountAmount();
+
+        //then
+        assertEquals(discountPrice, 0);
+    }
+
     @ParameterizedTest
     @CsvSource(value = {
         "3",

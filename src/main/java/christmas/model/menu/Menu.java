@@ -36,8 +36,12 @@ public enum Menu {
         BEVERAGE
     }
 
-    public String getName() {
-        return name;
+    public boolean isSameFoodName(String foodName) {
+        return name.equals(foodName);
+    }
+
+    public boolean isSameFoodCategory(Category foodCategory) {
+        return category == foodCategory;
     }
 
     public int getPrice() {

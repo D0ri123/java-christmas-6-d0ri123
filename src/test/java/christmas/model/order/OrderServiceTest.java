@@ -19,6 +19,4 @@ class OrderServiceTest {
         assertEquals(order.getQuantity(), 2);
     }
     
-    //TODO: 만약 입력이 잘못 들어오면?
-
 }

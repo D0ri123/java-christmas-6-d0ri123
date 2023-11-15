@@ -5,16 +5,16 @@ import christmas.model.freebie.Freebie;
 import java.util.List;
 
 public class MemberBenefit {
-    private final List<MemberDiscount> appliedDiscountService;
+    private final List<MemberDiscount> memberDiscounts;
     private final Freebie freebie;
 
-    public MemberBenefit(List<MemberDiscount> discountServices, Freebie freebie) {
-        this.appliedDiscountService = discountServices;
+    public MemberBenefit(List<MemberDiscount> memberDiscounts, Freebie freebie) {
+        this.memberDiscounts = memberDiscounts;
         this.freebie = freebie;
     }
 
     public List<MemberDiscount> getAppliedDiscount() {
-        return appliedDiscountService;
+        return memberDiscounts;
     }
 
     public Freebie getFreebie() {

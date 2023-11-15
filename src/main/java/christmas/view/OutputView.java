@@ -78,6 +78,7 @@ public class OutputView {
     public void printBenefitDetails(List<MemberDiscount> discountServiceEvent, Freebie freebie) {
         if(discountServiceEvent.size() == 0) {
             System.out.println(freebie.getName());
+            return;
         }
         for (MemberDiscount memberDiscount : discountServiceEvent) {
             printBenefitDetails(memberDiscount.getEventName(), memberDiscount.getAppliedPrice());

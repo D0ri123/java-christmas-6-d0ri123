@@ -9,17 +9,18 @@ public class MemberBenefitService {
     private final MemberBenefit memberBenefit;
 
     public MemberBenefitService(List<MemberDiscount> discountServices, Freebie freebie) {
-        List<MemberDiscount> memberDiscounts = filterOnlyAppliedDiscount(discountServices);
+        List<MemberDiscount> memberDiscounts = filterAppliedDiscount(discountServices);
         this.memberBenefit = new MemberBenefit(memberDiscounts, freebie);
     }
 
-    private List<MemberDiscount> filterOnlyAppliedDiscount(List<MemberDiscount> discountServices) {
+    private List<MemberDiscount> filterAppliedDiscount(List<MemberDiscount> discountServices) {
         return discountServices.stream()
             .filter(discount -> discount.getAppliedPrice() != 0)
             .collect(Collectors.toList());
     }
 
-    public int getTotalAppliedBenefit() {
+    //Benefit = 할인 혜택 + 증정 혜택
+    public int calculateTotalAppliedBenefit() {
         int totalDiscount = memberBenefit.getAppliedDiscount().stream()
             .mapToInt(MemberDiscount::getAppliedPrice)
             .sum();
@@ -27,7 +28,7 @@ public class MemberBenefitService {
         return totalDiscount + freebiePrice;
     }
 
-    public int getTotalAppliedDiscount() {
+    public int calculateTotalAppliedDiscount() {
         return memberBenefit.getAppliedDiscount().stream()
             .mapToInt(MemberDiscount::getAppliedPrice)
             .sum();

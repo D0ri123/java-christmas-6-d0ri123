@@ -106,18 +106,18 @@ public class EventController {
     }
 
     private void showBenefitAmount() {
-        int totalAppliedBenefit = memberBenefitService.getTotalAppliedBenefit();
+        int totalAppliedBenefit = memberBenefitService.calculateTotalAppliedBenefit();
         outputView.printTotalBenefitPrice(totalAppliedBenefit);
     }
 
     private void showDiscountedPrice() {
-        int totalAppliedDiscount = memberBenefitService.getTotalAppliedDiscount();
+        int totalAppliedDiscount = memberBenefitService.calculateTotalAppliedDiscount();
         int totalPrice = orderGroupService.calculateTotalPrice();
         outputView.printExpectedPayment(totalPrice - totalAppliedDiscount);
     }
 
     private void showMemberBadge() {
-        int sum = memberBenefitService.getTotalAppliedBenefit();
+        int sum = memberBenefitService.calculateTotalAppliedBenefit();
         outputView.printBadge(BadgeService.getBadgeByTotalBenefitPrice(sum));
     }
 

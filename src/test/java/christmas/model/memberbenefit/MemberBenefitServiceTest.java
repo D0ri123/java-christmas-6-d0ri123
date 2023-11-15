@@ -50,7 +50,7 @@ class MemberBenefitServiceTest {
         memberBenefitService = new MemberBenefitService(discounts, freebie);
 
         //when
-        int totalAppliedBenefit = memberBenefitService.getTotalAppliedBenefit();
+        int totalAppliedBenefit = memberBenefitService.calculateTotalAppliedBenefit();
         int expectedPrice = 10_046 + price;
 
         //then
@@ -63,7 +63,7 @@ class MemberBenefitServiceTest {
         memberBenefitService = new MemberBenefitService(discounts, Freebie.FREE_CHAMPAGNE);
 
         //when
-        int expectedPrice = memberBenefitService.getTotalAppliedDiscount();
+        int expectedPrice = memberBenefitService.calculateTotalAppliedDiscount();
 
         //then
         assertEquals(expectedPrice, 10_046);

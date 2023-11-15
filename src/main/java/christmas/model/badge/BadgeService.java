@@ -8,7 +8,7 @@ public class BadgeService {
 
     public static String getBadgeByTotalBenefitPrice(int totalBenefitPrice) {
         return badges.stream()
-            .filter(badge -> badge.getMinimumLimit() <= totalBenefitPrice)
+            .filter(badge -> badge.getQualifiedBadge(totalBenefitPrice))
             .findFirst()
             .map(Badge::getName)
             .orElseThrow(() -> new IllegalArgumentException("해당하는 뱃지가 없습니다."));

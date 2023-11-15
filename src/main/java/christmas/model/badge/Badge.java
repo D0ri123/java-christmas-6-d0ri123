@@ -14,11 +14,11 @@ public enum Badge {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
+    public boolean getQualifiedBadge(int totalBenefitPrice) {
+        return minimumLimit <= totalBenefitPrice;
     }
 
-    public int getMinimumLimit() {
-        return minimumLimit;
+    public String getName() {
+        return name;
     }
 }

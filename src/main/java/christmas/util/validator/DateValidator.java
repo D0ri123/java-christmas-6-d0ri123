@@ -1,8 +1,9 @@
 package christmas.util.validator;
 
+import static christmas.util.Constants.EVENT_MONTH;
 import static christmas.util.Constants.EVENT_YEAR;
 
-import java.util.Calendar;
+import java.time.YearMonth;
 
 public class DateValidator {
 
@@ -34,10 +35,8 @@ public class DateValidator {
     }
 
     private static boolean checkDate(int date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(EVENT_YEAR, Calendar.DECEMBER, 1);
-        int lastDate = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        YearMonth eventDate = YearMonth.of(EVENT_YEAR, EVENT_MONTH);
+        int lastDate = eventDate.lengthOfMonth();
         return date <= lastDate;
     }
-
 }

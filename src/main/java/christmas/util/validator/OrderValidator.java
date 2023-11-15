@@ -5,12 +5,6 @@ import java.util.Arrays;
 
 public class OrderValidator {
 
-//    public static void validateTemplate(String[] splitMenu) {
-//        if(splitMenu.length != 2) {
-//            throw new IllegalArgumentException("[")
-//        }
-//    }
-
     public static void validate(String input, int quantity) {
         validateExistMenu(input);
         validateMenuQuantity(quantity);

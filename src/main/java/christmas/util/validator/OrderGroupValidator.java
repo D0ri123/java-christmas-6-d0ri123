@@ -44,7 +44,7 @@ public class OrderGroupValidator {
 
     private static void validateOnlyBeverage(List<Order> orders) {
         Set<Category> categories = orders.stream()
-            .map(order -> MenuService.findCategory(order.getMenu()))
+            .map(order -> MenuService.getCategoryByFoodName(order.getMenu()))
             .collect(Collectors.toSet());
 
         if (categories.size() == 1 && categories.contains(Category.BEVERAGE)) {

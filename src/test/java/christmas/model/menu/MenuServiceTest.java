@@ -17,7 +17,7 @@ class MenuServiceTest {
     })
     void 주문한_음식의_가격을_찾는다(String foodName, int foodPrice) {
         //given, when
-        int price = MenuService.getPriceWithFoodNameCondition(foodName);
+        int price = MenuService.getPriceByFoodName(foodName);
 
         //then
         assertEquals(price, foodPrice);
@@ -33,10 +33,10 @@ class MenuServiceTest {
     void 주문한_음식이_없는_메뉴라면_예외가_발생한다(String foodName) {
         //given, when
         IllegalArgumentException menuNameException = assertThrows(IllegalArgumentException.class,
-            () -> MenuService.getPriceWithFoodNameCondition(foodName));
+            () -> MenuService.getPriceByFoodName(foodName));
 
         IllegalArgumentException categoryNameException = assertThrows(IllegalArgumentException.class,
-            () -> MenuService.findCategory(foodName));
+            () -> MenuService.getCategoryByFoodName(foodName));
 
         //then
         assertEquals(menuNameException.getMessage(), "[ERROR] 요청한 메뉴를 찾을 수 없습니다.");
@@ -52,7 +52,7 @@ class MenuServiceTest {
     })
     void 주문한_음식의_카테고리를_찾는다(String foodName, Category foodCategory) {
         //given, when
-        Category expectedCategory = MenuService.findCategory(foodName);
+        Category expectedCategory = MenuService.getCategoryByFoodName(foodName);
 
         //then
         assertEquals(foodCategory, expectedCategory);
@@ -69,7 +69,7 @@ class MenuServiceTest {
     })
     void 음식이름과_카테고리가_동일한_개수를_센다(String foodName, Category category, int result) {
         //given, when
-        int expectedResult = MenuService.getMenuWithCategory(category, foodName);
+        int expectedResult = MenuService.countMenuWithCategoryAndName(category, foodName);
 
         //then
         assertEquals(expectedResult, result);

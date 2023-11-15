@@ -6,7 +6,7 @@ import java.util.List;
 public class MenuService {
     private static final List<Menu> menus = List.of(Menu.values());
 
-    public static int getPriceWithFoodNameCondition(String foodName) {
+    public static int getPriceByFoodName(String foodName) {
         return menus.stream()
             .filter(menu -> menu.getName().equals(foodName))
             .findFirst()
@@ -14,7 +14,7 @@ public class MenuService {
             .orElseThrow(() -> new IllegalArgumentException("[ERROR] 요청한 메뉴를 찾을 수 없습니다."));
     }
 
-    public static Category findCategory(String foodName) {
+    public static Category getCategoryByFoodName(String foodName) {
         return menus.stream()
             .filter(menu -> menu.getName().equals(foodName))
             .findFirst()
@@ -22,7 +22,7 @@ public class MenuService {
             .orElseThrow(() -> new IllegalArgumentException("[ERROR] 요청한 메뉴를 찾을 수 없습니다."));
     }
 
-    public static int getMenuWithCategory(Category category, String foodName) {
+    public static int countMenuWithCategoryAndName(Category category, String foodName) {
         return (int) menus.stream()
             .filter(menu -> menu.getName().equals(foodName))
             .filter(menu -> menu.getCategory().equals(category))

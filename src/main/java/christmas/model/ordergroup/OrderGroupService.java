@@ -32,7 +32,7 @@ public class OrderGroupService {
 
     public int calculateTotalPrice() {
         return orders.getOrders().stream()
-            .mapToInt(order -> MenuService.getPriceWithFoodNameCondition(order.getMenu()) * order.getQuantity())
+            .mapToInt(order -> MenuService.getPriceByFoodName(order.getMenu()) * order.getQuantity())
             .sum();
     }
 

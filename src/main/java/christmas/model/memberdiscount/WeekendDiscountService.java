@@ -32,7 +32,7 @@ public class WeekendDiscountService implements DiscountService {
     public int calculateDiscountAmount() {
         if (canApplyDiscount() && price >= MIN_DISCOUNT_AMOUNT) {
             int discountedMenu = orders.getOrders().stream()
-                .mapToInt(order -> MenuService.getMenuWithCategory(MAIN, order.getMenu()) * order.getQuantity())
+                .mapToInt(order -> MenuService.countMenuWithCategoryAndName(MAIN, order.getMenu()) * order.getQuantity())
                 .sum();
             return discountedMenu * WEEKEND_DISCOUNT_AMOUNT;
         }

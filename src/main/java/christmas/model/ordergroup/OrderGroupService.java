@@ -18,13 +18,13 @@ public class OrderGroupService {
     private OrderGroup generateOrderGroup(String orderMenu) {
         OrderGroupValidator.validateInputTemplate(orderMenu);
 
-        List<Order> processedOrder = processOrderMenu(orderMenu);
+        List<Order> processedOrder = generateOrders(orderMenu);
 
         OrderGroupValidator.validateOrderGroup(processedOrder);
         return new OrderGroup(processedOrder);
     }
 
-    private List<Order> processOrderMenu(String orderMenu) {
+    private List<Order> generateOrders(String orderMenu) {
         return Arrays.stream(orderMenu.split(","))
             .map(menu -> new OrderService(menu).getOrder())
             .collect(Collectors.toList());

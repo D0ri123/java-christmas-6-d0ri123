@@ -8,16 +8,22 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class DiscountFactory {
-    private static final Set<DiscountService> discountServices = new HashSet<>();
+    private final Set<DiscountService> discountServices = new HashSet<>();
 
-    public static void init(OrderDate orderDate, OrderGroup orderGroup, int totalPrice) {
+    public static DiscountFactory createDiscountFactory(OrderDate orderDate, OrderGroup orderGroup, int totalPrice) {
+        DiscountFactory discountFactory = new DiscountFactory();
+        discountFactory.init(orderDate, orderGroup, totalPrice);
+        return discountFactory;
+    }
+
+    private void init(OrderDate orderDate, OrderGroup orderGroup, int totalPrice) {
         discountServices.add(new XmasDiscountService(orderDate, totalPrice));
         discountServices.add(new SpecialDiscountService(orderDate, totalPrice));
         discountServices.add(new WeekdayDiscountService(orderDate, orderGroup, totalPrice));
         discountServices.add(new WeekendDiscountService(orderDate, orderGroup, totalPrice));
     }
 
-    public static List<MemberDiscount> getMemberDiscounts() {
+    public List<MemberDiscount> getMemberDiscounts() {
         return discountServices.stream()
             .map(DiscountService::getMemberDiscount)
             .collect(Collectors.toList());

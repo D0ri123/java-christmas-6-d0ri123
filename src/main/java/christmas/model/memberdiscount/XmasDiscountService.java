@@ -22,20 +22,15 @@ public class XmasDiscountService implements DiscountService {
 
     @Override
     public boolean canApplyDiscount() {
-        int date = orderDate.getDate();
-        return date >= EVENT_START && date <= EVENT_END;
+        return orderDate.isQualifiedXmasCondition(EVENT_START, EVENT_END);
     }
 
     @Override
     public int calculateDiscountAmount() {
         if (canApplyDiscount() && price >= MIN_DISCOUNT_AMOUNT) {
-            return BASE_AMOUNT + (calculateDay(orderDate.getDate()) * XMAS_DISCOUNT_AMOUNT);
+            return BASE_AMOUNT + orderDate.calculateDay() * XMAS_DISCOUNT_AMOUNT;
         }
         return NOT_APPLIED_DISCOUNT_AMOUNT;
-    }
-
-    private int calculateDay(int date) {
-        return date - 1;
     }
 
     @Override

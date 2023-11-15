@@ -2,6 +2,7 @@ package christmas.model.memberdiscount;
 
 import static christmas.model.menu.Menu.Category.MAIN;
 import static christmas.util.Constants.MIN_DISCOUNT_AMOUNT;
+import static christmas.util.Constants.NOT_APPLIED_DISCOUNT_AMOUNT;
 
 import christmas.model.orderdate.OrderDate;
 import christmas.model.menu.MenuService;
@@ -25,18 +26,18 @@ public class WeekendDiscountService implements DiscountService {
 
     @Override
     public boolean canApplyDiscount() {
-        return WEEKEND.contains(orderDate.getDay());
+        return orderDate.isQualifiedWeekCondition(WEEKEND);
     }
 
     @Override
     public int calculateDiscountAmount() {
         if (canApplyDiscount() && price >= MIN_DISCOUNT_AMOUNT) {
             int discountedMenu = orders.getOrders().stream()
-                .mapToInt(order -> MenuService.countMenuWithCategoryAndName(MAIN, order.getMenu()) * order.getQuantity())
+                .mapToInt(order -> MenuService.countMenuWithCategory(MAIN, order.getMenu()) * order.getQuantity())
                 .sum();
             return discountedMenu * WEEKEND_DISCOUNT_AMOUNT;
         }
-        return 0;
+        return NOT_APPLIED_DISCOUNT_AMOUNT;
     }
 
     @Override

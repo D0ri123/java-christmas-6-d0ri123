@@ -27,14 +27,14 @@ public class WeekdayDiscountService implements DiscountService {
 
     @Override
     public boolean canApplyDiscount() {
-        return WEEKDAY.contains(orderDate.getDay());
+        return orderDate.isQualifiedWeekCondition(WEEKDAY);
     }
 
     @Override
     public int calculateDiscountAmount() {
         if (canApplyDiscount() && price >= MIN_DISCOUNT_AMOUNT) {
             int discountedMenu = orders.getOrders().stream()
-                .mapToInt(order -> MenuService.countMenuWithCategoryAndName(DESSERT, order.getMenu()) * order.getQuantity())
+                .mapToInt(order -> MenuService.countMenuWithCategory(DESSERT, order.getMenu()) * order.getQuantity())
                 .sum();
             return discountedMenu * WEEKDAY_DISCOUNT_AMOUNT;
         }

@@ -69,7 +69,7 @@ class MenuServiceTest {
     })
     void 음식이름과_카테고리가_동일한_개수를_센다(String foodName, Category category, int result) {
         //given, when
-        int expectedResult = MenuService.countMenuWithCategoryAndName(category, foodName);
+        int expectedResult = MenuService.countMenuWithCategory(category, foodName);
 
         //then
         assertEquals(expectedResult, result);

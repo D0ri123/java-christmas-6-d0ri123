@@ -11,10 +11,21 @@ public class OrderDate {
         this.day = day;
     }
 
-    public boolean isQuailfiedCondition(List<Integer> specialDiscountDays) {
+    public boolean isQualifiedSpecialCondition(List<Integer> specialDiscountDays) {
         return specialDiscountDays.contains(date);
     }
 
+    public boolean isQualifiedWeekCondition(List<String> condition) {
+        return condition.contains(day);
+    }
+
+    public boolean isQualifiedXmasCondition(int start, int end) {
+        return date >= start && date <= end;
+    }
+
+    public int calculateDay() {
+        return date - 1;
+    }
 
     public int getDate() {
         return date;
@@ -23,5 +34,4 @@ public class OrderDate {
     public String getDay() {
         return day;
     }
-
 }

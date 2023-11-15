@@ -22,10 +22,11 @@ public class MenuService {
             .orElseThrow(() -> new IllegalArgumentException("[ERROR] 요청한 메뉴를 찾을 수 없습니다."));
     }
 
-    public static int countMenuWithCategoryAndName(Category category, String foodName) {
+    public static int countMenuWithCategory(Category category, String foodName) {
         return (int) menus.stream()
             .filter(menu -> menu.getName().equals(foodName))
             .filter(menu -> menu.getCategory().equals(category))
             .count();
     }
+
 }

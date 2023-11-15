@@ -21,7 +21,7 @@ public class SpecialDiscountService implements DiscountService {
 
     @Override
     public boolean canApplyDiscount() {
-        return orderDate.isQuailfiedCondition(SPECIAL_DISCOUNT_DAYS);
+        return orderDate.isQualifiedSpecialCondition(SPECIAL_DISCOUNT_DAYS);
     }
 
     @Override

@@ -71,12 +71,10 @@ public class EventController {
     }
 
     private void listAllMenus() {
-        outputView.printOrderMenuTitle();
         outputView.printOrderSummary(orderGroupService.getOrderList());
     }
 
     private void showPreDiscountOrderPrice() {
-        outputView.printTotalAmountBeforeDiscount();
         outputView.printTotalAmountFormatting(orderGroupService.calculateTotalPrice());
     }
 
@@ -84,7 +82,6 @@ public class EventController {
         int totalPrice = orderGroupService.calculateTotalPrice();
         String freebieName = FreebieService.getFreebieByPreDiscountPrice(totalPrice).getName();
 
-        outputView.printFreebieMenuTitle();
         outputView.printFreebieMenu(freebieName);
     }
 

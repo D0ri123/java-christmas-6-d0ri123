@@ -67,7 +67,7 @@ public class EventController {
     }
 
     private void previewEventBenefitsOnDate() {
-        outputView.previewEventBenefits(orderDateService.getVisitDate());
+        outputView.previewEventBenefits(orderDateService.getOrderDate().getDate());
     }
 
     private void listAllMenus() {

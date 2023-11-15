@@ -1,5 +1,6 @@
 package christmas.util.validator;
 
+import static christmas.util.Constants.VALID_MAXIMUM;
 import static christmas.util.ExceptionMessage.INVALID_ORDER_MESSAGE;
 import static christmas.util.ExceptionMessage.MAXIMUM_OVER_MESSAGE;
 import static christmas.util.ExceptionMessage.NOT_ALLOWED_ONLY_BEVERAGE;
@@ -16,7 +17,6 @@ import java.util.stream.Collectors;
 
 public class OrderGroupValidator {
     private static final String regex = "([가-힣]+-[0-9]+,)*[가-힣]+-[0-9]+";
-    private static final int VALID_MAXIMUM = 20;
 
     public static void validateInputTemplate(String input) {
         Pattern template = Pattern.compile(regex);

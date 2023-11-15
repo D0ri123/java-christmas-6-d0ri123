@@ -1,5 +1,7 @@
 package christmas.util.validator;
 
+import static christmas.util.Constants.VALID_MAXIMUM;
+import static christmas.util.Constants.VALID_MINIMUM;
 import static christmas.util.ExceptionMessage.INVALID_ORDER_MESSAGE;
 
 import christmas.model.menu.Menu;
@@ -20,7 +22,7 @@ public class OrderValidator {
     }
 
     private static void validateMenuQuantity(int quantity) {
-        if(quantity < 1 || quantity > 20) {
+        if(quantity < VALID_MINIMUM || quantity > VALID_MAXIMUM) {
             throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
         }
     }

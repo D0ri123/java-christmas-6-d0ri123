@@ -10,9 +10,12 @@ public class OrderService {
     }
 
     private Order generateOrder(String menu) {
-        String[] split = menu.split("-");
-        OrderValidator.validate(split[0], Integer.parseInt(split[1]));
-        return new Order(split[0], Integer.parseInt(split[1]));
+        String menuName = menu.split("-")[0];
+        int menuQuantity = Integer.parseInt(menu.split("-")[1]);
+
+        OrderValidator.validate(menuName, menuQuantity);
+
+        return new Order(menuName, menuQuantity);
     }
 
     public Order getOrder() {

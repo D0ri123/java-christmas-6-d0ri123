@@ -14,16 +14,16 @@ public enum Freebie {
         this.minimumLimit = minimumLimit;
     }
 
+    public boolean getQualifiedFreebie(int totalPrice) {
+        return minimumLimit <= totalPrice;
+    }
+
     public String getName() {
         return name;
     }
 
     public int getPrice() {
         return price;
-    }
-
-    public int getMinimumLimit() {
-        return minimumLimit;
     }
 
 }

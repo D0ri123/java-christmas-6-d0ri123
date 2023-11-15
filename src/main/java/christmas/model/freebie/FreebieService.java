@@ -9,7 +9,7 @@ public class FreebieService {
 
     public static Freebie getFreebieByPreDiscountPrice(int price) {
         return freebies.stream()
-            .filter(freebie -> price >= freebie.getMinimumLimit())
+            .filter(freebie -> freebie.getQualifiedFreebie(price))
             .findFirst()
             .orElse(FREE_NONE);
     }

@@ -2,12 +2,12 @@ package christmas.util.validator;
 
 import static christmas.util.Constants.EVENT_MONTH;
 import static christmas.util.Constants.EVENT_YEAR;
+import static christmas.util.ExceptionMessage.DATE_REQUIRED_MESSAGE;
+import static christmas.util.ExceptionMessage.INVALID_DATE_MESSAGE;
 
 import java.time.YearMonth;
 
 public class DateValidator {
-    public static final String DATE_REQUIRED_MESSAGE = "[ERROR] 날짜를 필수로 입력해야 합니다. 다시 입력해 주세요.";
-    public static final String INVALID_DATE_MESSAGE = "[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.";
 
     public static int validate(String input) {
         validateBlank(input);

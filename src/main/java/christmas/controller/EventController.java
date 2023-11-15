@@ -89,14 +89,20 @@ public class EventController {
     }
 
     private void showMemberBenefits() {
-        DiscountFactory discountFactory = DiscountFactory.createDiscountFactory(
-            orderDateService.getOrderDate(), orderGroupService.getOrders(), orderGroupService.calculateTotalPrice()
-        );
-        memberBenefitService = new MemberBenefitService(
-            discountFactory.getMemberDiscounts(), FreebieService.getFreebieByPrice(orderGroupService.calculateTotalPrice()));
-
+        initializeMemberBenefits();
         outputView.printBenefitLogTitle();
-        outputView.printBenefitDetails(memberBenefitService.getMemberDiscountServices(), memberBenefitService.getFreebieOrNull());
+        outputView.printBenefitDetails(
+            memberBenefitService.getMemberDiscountServices(), memberBenefitService.getFreebieOrNull());
+    }
+
+    private void initializeMemberBenefits() {
+        int preDiscountPrice = orderGroupService.calculateTotalPrice();
+
+        DiscountFactory discountFactory = DiscountFactory.createDiscountFactory(
+            orderDateService.getOrderDate(), orderGroupService.getOrders(), preDiscountPrice);
+
+        memberBenefitService = new MemberBenefitService(
+            discountFactory.getMemberDiscounts(), FreebieService.getFreebieByPrice(preDiscountPrice));
     }
 
     private void showBenefitAmount() {

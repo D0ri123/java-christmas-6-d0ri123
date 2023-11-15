@@ -24,51 +24,63 @@ public class EventController {
 
     public void progressReservation() {
         start();
-        getVisitDate();
-        orderMenu();
-        previewBenefits();
-        previewOrderedMenu();
-        previewPriceBeforeBenefit();
-        previewFreebie();
-        previewBenefitLog();
-        previewTotalBenefitPrice();
-        previewExpectedPayment();
-        previewBadge();
+        requestInput();
+        showOrderDetails();
+        showBenefitDetails();
     }
 
     private void start() {
         inputView.start();
     }
 
-    private void getVisitDate() {
+    private void requestInput() {
+        getVisitDateFromMember();
+        getMenuFromMember();
+    }
+
+    private void showOrderDetails() {
+        previewEventBenefitsOnDate();
+        listAllMenus();
+        showPreDiscountOrderPrice();
+    }
+
+    private void showBenefitDetails() {
+        showFreebieItem();
+        showMemberBenefits();
+        showBenefitAmount();
+        showDiscountedPrice();
+        showMemberBadge();
+    }
+
+    private void getVisitDateFromMember() {
         orderDateService = Retry.retryOnException(() -> {
             String inputDate = inputView.askExpectedVisitDate();
             return new OrderDateService(inputDate);
         });
     }
 
-    private void orderMenu() {
+    private void getMenuFromMember() {
         orderGroupService = Retry.retryOnException(() -> {
             String menu = inputView.askOrderDetails();
             return new OrderGroupService(menu);
         });
     }
 
-    private void previewBenefits() {
+    private void previewEventBenefitsOnDate() {
         outputView.previewEventBenefits(orderDateService.getVisitDate());
     }
 
-    private void previewOrderedMenu() {
+    private void listAllMenus() {
         outputView.printOrderMenuTitle();
         outputView.printOrderSummary(orderGroupService.getOrderList());
     }
 
-    private void previewPriceBeforeBenefit() {
+    private void showPreDiscountOrderPrice() {
         outputView.printTotalAmountBeforeDiscount();
         outputView.printTotalAmountFormatting(orderGroupService.calculateTotalPrice());
     }
 
-    private void previewFreebie() {
+    private void showFreebieItem() {
         int totalPrice = orderGroupService.calculateTotalPrice();
         String freebieName = FreebieService.provideFreebieByPrice(totalPrice);
 
@@ -76,29 +88,29 @@ public class EventController {
         outputView.printFreebieMenu(freebieName);
     }
 
-    private void previewBenefitLog() {
-        DiscountFactory.init(
+    private void showMemberBenefits() {
+        DiscountFactory discountFactory = DiscountFactory.createDiscountFactory(
             orderDateService.getOrderDate(), orderGroupService.getOrders(), orderGroupService.calculateTotalPrice()
         );
         memberBenefitService = new MemberBenefitService(
-            DiscountFactory.getMemberDiscounts(), FreebieService.getFreebieByPrice(orderGroupService.calculateTotalPrice()));
+            discountFactory.getMemberDiscounts(), FreebieService.getFreebieByPrice(orderGroupService.calculateTotalPrice()));
 
         outputView.printBenefitLogTitle();
         outputView.printBenefitDetails(memberBenefitService.getMemberDiscountServices(), memberBenefitService.getFreebieOrNull());
     }
 
-    private void previewTotalBenefitPrice() {
+    private void showBenefitAmount() {
         int totalAppliedBenefit = memberBenefitService.getTotalAppliedBenefit();
         outputView.printTotalBenefitPrice(totalAppliedBenefit);
     }
 
-    private void previewExpectedPayment() {
+    private void showDiscountedPrice() {
         int totalAppliedDiscount = memberBenefitService.getTotalAppliedDiscount();
         int totalPrice = orderGroupService.calculateTotalPrice();
         outputView.printExpectedPayment(totalPrice - totalAppliedDiscount);
     }
 
-    private void previewBadge() {
+    private void showMemberBadge() {
         int sum = memberBenefitService.getTotalAppliedBenefit();
         outputView.printBadge(BadgeService.getBadgeByTotalPrice(sum));
     }

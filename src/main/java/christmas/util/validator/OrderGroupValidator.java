@@ -11,12 +11,15 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class OrderGroupValidator {
+   public static final String INVALID_ORDER_MESSAGE = "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.";
+   public static final String MAXIMUM_OVER_MESSAGE = "[ERROR] 총 주문 개수가 20개를 초과했습니다. 다시 입력해 주세요.";
+   public static final String NOT_ALLOWED_ONLY_BEVERAGE = "[ERROR] 음료만 주문 시, 주문할 수 없습니다. 다시 입력해 주세요.";
 
     public static void validateInputTemplate(String input) {
         Pattern template = Pattern.compile("([가-힣]+-[0-9]+,)*[가-힣]+-[0-9]+");
         Matcher matcher = template.matcher(input);
         if (!matcher.matches()) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
         }
     }
 
@@ -29,7 +32,7 @@ public class OrderGroupValidator {
     private static void validateDuplicateMenu(List<Order> orders) {
         Set<Order> distinctOrders = new HashSet<>(orders);
         if (orders.size() != distinctOrders.size()) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
         }
     }
 
@@ -38,7 +41,7 @@ public class OrderGroupValidator {
             .mapToInt(Order::getQuantity)
             .sum();
         if(totalQuantity > 20) {
-            throw new IllegalArgumentException("[ERROR] 총 주문 개수가 20개를 초과했습니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(MAXIMUM_OVER_MESSAGE);
         }
     }
 
@@ -48,7 +51,7 @@ public class OrderGroupValidator {
             .collect(Collectors.toSet());
 
         if (categories.size() == 1 && categories.contains(Category.BEVERAGE)) {
-            throw new IllegalArgumentException("[ERROR] 음료만 주문 시, 주문할 수 없습니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(NOT_ALLOWED_ONLY_BEVERAGE);
         }
     }
 

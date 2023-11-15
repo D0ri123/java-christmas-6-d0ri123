@@ -96,7 +96,7 @@ public class OutputView {
         for (MemberDiscount memberDiscount : discountServiceEvent) {
             printBenefitDetails(memberDiscount.getEventName(), memberDiscount.getAppliedPrice());
         }
-        if (freebie != null) {
+        if (freebie != Freebie.FREE_NONE) {
             printBenefitDetails("증정 이벤트", freebie.getPrice());
         }
     }

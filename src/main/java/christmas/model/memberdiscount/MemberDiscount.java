@@ -9,6 +9,10 @@ public class MemberDiscount {
         this.appliedPrice = appliedPrice;
     }
 
+    public boolean isDiscountApplicable() {
+        return appliedPrice != 0;
+    }
+
     public String getEventName() {
         return discountEvent;
     }

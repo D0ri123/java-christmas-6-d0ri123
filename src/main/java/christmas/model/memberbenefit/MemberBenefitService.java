@@ -15,31 +15,20 @@ public class MemberBenefitService {
 
     private List<MemberDiscount> filterAppliedDiscount(List<MemberDiscount> discountServices) {
         return discountServices.stream()
-            .filter(discount -> discount.getAppliedPrice() != 0)
+            .filter(MemberDiscount::isDiscountApplicable)
             .collect(Collectors.toList());
     }
 
-    //Benefit = 할인 혜택 + 증정 혜택
     public int calculateTotalAppliedBenefit() {
-        int totalDiscount = memberBenefit.getAppliedDiscount().stream()
-            .mapToInt(MemberDiscount::getAppliedPrice)
-            .sum();
-        int freebiePrice = memberBenefit.getFreebie().getPrice();
-        return totalDiscount + freebiePrice;
+       return memberBenefit.calculateBenefitPrice();
     }
 
     public int calculateTotalAppliedDiscount() {
-        return memberBenefit.getAppliedDiscount().stream()
-            .mapToInt(MemberDiscount::getAppliedPrice)
-            .sum();
+        return memberBenefit.calculateTotalDiscount();
     }
 
-    public Freebie getFreebieOrNull() {
-        Freebie freebie = memberBenefit.getFreebie();
-        if (freebie.getName().equals("없음")) {
-            return null;
-        }
-        return freebie;
+    public Freebie getFreebie() {
+        return memberBenefit.getFreebie();
     }
 
     public List<MemberDiscount> getMemberDiscountServices() {

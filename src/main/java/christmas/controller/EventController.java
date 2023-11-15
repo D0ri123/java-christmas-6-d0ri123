@@ -92,7 +92,7 @@ public class EventController {
         initializeMemberBenefits();
         outputView.printBenefitLogTitle();
         outputView.printBenefitDetails(
-            memberBenefitService.getMemberDiscountServices(), memberBenefitService.getFreebieOrNull());
+            memberBenefitService.getMemberDiscountServices(), memberBenefitService.getFreebie());
     }
 
     private void initializeMemberBenefits() {

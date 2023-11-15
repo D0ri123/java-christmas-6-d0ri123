@@ -13,6 +13,18 @@ public class MemberBenefit {
         this.freebie = freebie;
     }
 
+    public int calculateBenefitPrice() {
+        int totalDiscount = calculateTotalDiscount();
+        int freebiePrice = freebie.getPrice();
+        return totalDiscount + freebiePrice;
+    }
+
+    public int calculateTotalDiscount() {
+        return memberDiscounts.stream()
+            .mapToInt(MemberDiscount::getAppliedPrice)
+            .sum();
+    }
+
     public List<MemberDiscount> getAppliedDiscount() {
         return memberDiscounts;
     }
@@ -20,4 +32,5 @@ public class MemberBenefit {
     public Freebie getFreebie() {
         return freebie;
     }
+
 }

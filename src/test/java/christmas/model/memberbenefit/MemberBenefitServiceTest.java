@@ -69,15 +69,4 @@ class MemberBenefitServiceTest {
         assertEquals(expectedPrice, 10_046);
     }
 
-    @Test
-    void 증정품이_없다면_null을_반환한다() {
-        //given
-        memberBenefitService = new MemberBenefitService(discounts, Freebie.FREE_NONE);
-
-        //when
-        Freebie expectedFreebie = memberBenefitService.getFreebieOrNull();
-
-        //then
-        assertNull(expectedFreebie);
-    }
 }

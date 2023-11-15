@@ -15,7 +15,7 @@ class FreebieServiceTest {
         "0,없음"
     })
     void 주문_가격에_따라_증정품을_다르게_받는다1(int price, String freebie) {
-        String expectedFreebie = FreebieService.provideFreebieByPrice(price);
+        String expectedFreebie = FreebieService.getFreebieByPreDiscountPrice(price).getName();
         assertEquals(freebie, expectedFreebie);
     }
 
@@ -28,7 +28,7 @@ class FreebieServiceTest {
         "0,FREE_NONE"
     })
     void 주문_가격에_따라_증정품_다르게_받는다2(int price, Freebie freebie) {
-        Freebie expectedFreebie = FreebieService.getFreebieByPrice(price);
+        Freebie expectedFreebie = FreebieService.getFreebieByPreDiscountPrice(price);
         assertEquals(freebie, expectedFreebie);
     }
 

@@ -82,7 +82,7 @@ public class EventController {
 
     private void showFreebieItem() {
         int totalPrice = orderGroupService.calculateTotalPrice();
-        String freebieName = FreebieService.provideFreebieByPrice(totalPrice);
+        String freebieName = FreebieService.getFreebieByPreDiscountPrice(totalPrice).getName();
 
         outputView.printFreebieMenuTitle();
         outputView.printFreebieMenu(freebieName);
@@ -102,7 +102,7 @@ public class EventController {
             orderDateService.getOrderDate(), orderGroupService.getOrders(), preDiscountPrice);
 
         memberBenefitService = new MemberBenefitService(
-            discountFactory.getMemberDiscounts(), FreebieService.getFreebieByPrice(preDiscountPrice));
+            discountFactory.getMemberDiscounts(), FreebieService.getFreebieByPreDiscountPrice(preDiscountPrice));
     }
 
     private void showBenefitAmount() {
@@ -118,7 +118,7 @@ public class EventController {
 
     private void showMemberBadge() {
         int sum = memberBenefitService.getTotalAppliedBenefit();
-        outputView.printBadge(BadgeService.getBadgeByTotalPrice(sum));
+        outputView.printBadge(BadgeService.getBadgeByTotalBenefitPrice(sum));
     }
 
 }

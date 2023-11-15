@@ -1,12 +1,15 @@
 package christmas.model.memberdiscount;
 
+import static christmas.util.Constants.MIN_DISCOUNT_AMOUNT;
+import static christmas.util.Constants.NOT_APPLIED_DISCOUNT_AMOUNT;
+
 import christmas.model.orderdate.OrderDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SpecialDiscountService implements DiscountService {
-    private static final String eventName = "특별 할인";
-    private static final List<Integer> specialDays = new ArrayList<>(List.of(3,10,17,24,25,31));
+    private static final String DISCOUNT_EVENT = "특별 할인";
+    private static final List<Integer> SPECIAL_DISCOUNT_DAYS = List.of(3,10,17,24,25,31);
+    private static final int SPECIAL_DISCOUNT_AMOUNT = 1_000;
 
     private final OrderDate orderDate;
     private final int price;
@@ -18,19 +21,19 @@ public class SpecialDiscountService implements DiscountService {
 
     @Override
     public boolean canApplyDiscount() {
-        return specialDays.contains(orderDate.getDate());
+        return SPECIAL_DISCOUNT_DAYS.contains(orderDate.getDate());
     }
 
     @Override
     public int calculateDiscountAmount() {
-        if (canApplyDiscount() && price >= 10_000) {
-            return 1000;
+        if (canApplyDiscount() && price >= MIN_DISCOUNT_AMOUNT) {
+            return SPECIAL_DISCOUNT_AMOUNT;
         }
-        return 0;
+        return NOT_APPLIED_DISCOUNT_AMOUNT;
     }
 
     @Override
     public MemberDiscount getMemberDiscount() {
-        return new MemberDiscount(eventName, calculateDiscountAmount());
+        return new MemberDiscount(DISCOUNT_EVENT, calculateDiscountAmount());
     }
 }

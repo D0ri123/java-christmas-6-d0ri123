@@ -15,9 +15,10 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class OrderGroupValidator {
+    private static final String regex = "([가-힣]+-[0-9]+,)*[가-힣]+-[0-9]+";
 
     public static void validateInputTemplate(String input) {
-        Pattern template = Pattern.compile("([가-힣]+-[0-9]+,)*[가-힣]+-[0-9]+");
+        Pattern template = Pattern.compile(regex);
         Matcher matcher = template.matcher(input);
         if (!matcher.matches()) {
             throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);

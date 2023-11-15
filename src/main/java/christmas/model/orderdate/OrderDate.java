@@ -1,5 +1,7 @@
 package christmas.model.orderdate;
 
+import java.util.List;
+
 public class OrderDate {
     private final int date;
     private final String day;
@@ -8,6 +10,11 @@ public class OrderDate {
         this.date = date;
         this.day = day;
     }
+
+    public boolean isQuailfiedCondition(List<Integer> specialDiscountDays) {
+        return specialDiscountDays.contains(date);
+    }
+
 
     public int getDate() {
         return date;

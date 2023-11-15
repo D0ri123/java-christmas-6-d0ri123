@@ -1,8 +1,5 @@
 package christmas.model.badge;
 
-import java.util.Arrays;
-import java.util.List;
-
 public enum Badge {
     SANTA(20_000, "산타"),
     TREE(10_000, "트리"),
@@ -15,10 +12,6 @@ public enum Badge {
     Badge(int minimumLimit, String name) {
         this.minimumLimit = minimumLimit;
         this.name = name;
-    }
-
-    public static List<Badge> getAllBadges() {
-        return Arrays.stream(Badge.values()).toList();
     }
 
     public String getName() {

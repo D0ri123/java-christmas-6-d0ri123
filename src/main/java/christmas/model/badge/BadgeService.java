@@ -3,7 +3,8 @@ package christmas.model.badge;
 import java.util.List;
 
 public class BadgeService {
-    private static final List<Badge> badges = Badge.getAllBadges();
+
+    private static final List<Badge> badges = List.of(Badge.values());
 
     public static String getBadgeByTotalPrice(int totalPrice) {
         return badges.stream()

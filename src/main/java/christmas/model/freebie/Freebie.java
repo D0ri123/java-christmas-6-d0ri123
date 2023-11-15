@@ -1,8 +1,5 @@
 package christmas.model.freebie;
 
-import java.util.Arrays;
-import java.util.List;
-
 public enum Freebie {
     FREE_CHAMPAGNE("샴페인 1개", 25_000, 120_000),
     FREE_NONE("없음", 0, 0);
@@ -27,10 +24,6 @@ public enum Freebie {
 
     public int getMinimumLimit() {
         return minimumLimit;
-    }
-
-    public static List<Freebie> getAllFreebies() {
-        return Arrays.stream(Freebie.values()).toList();
     }
 
 }

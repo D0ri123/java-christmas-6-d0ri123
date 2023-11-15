@@ -5,7 +5,7 @@ import static christmas.model.freebie.Freebie.*;
 import java.util.List;
 
 public class FreebieService {
-    private static final List<Freebie> freebies = getAllFreebies();
+    private static final List<Freebie> freebies = List.of(values());
 
     public static String provideFreebieByPrice(int price) {
         return freebies.stream()

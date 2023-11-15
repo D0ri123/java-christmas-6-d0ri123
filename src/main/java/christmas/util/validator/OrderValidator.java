@@ -1,6 +1,7 @@
 package christmas.util.validator;
 
 import christmas.model.menu.Menu;
+import java.util.Arrays;
 
 public class OrderValidator {
 
@@ -10,7 +11,7 @@ public class OrderValidator {
     }
 
     public static void validateExistMenu(String input) {
-        Menu.getAllMenus().stream()
+        Arrays.stream(Menu.values())
             .filter(menu -> menu.getName().equals(input))
             .findFirst()
             .orElseThrow(() -> new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요."));

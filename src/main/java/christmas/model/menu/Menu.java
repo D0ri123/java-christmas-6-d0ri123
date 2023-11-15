@@ -5,9 +5,6 @@ import static christmas.model.menu.Menu.Category.BEVERAGE;
 import static christmas.model.menu.Menu.Category.DESSERT;
 import static christmas.model.menu.Menu.Category.MAIN;
 
-import java.util.Arrays;
-import java.util.List;
-
 public enum Menu {
     MUSHROOM_SOUP(APPETIZER, "양송이수프", 6_000),
     TAPAS(APPETIZER, "타파스", 5_500),
@@ -49,10 +46,6 @@ public enum Menu {
 
     public Category getCategory() {
         return category;
-    }
-
-    public static List<Menu> getAllMenus() {
-        return Arrays.stream(Menu.values()).toList();
     }
 
 }

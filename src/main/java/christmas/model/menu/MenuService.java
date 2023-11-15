@@ -4,7 +4,7 @@ import christmas.model.menu.Menu.Category;
 import java.util.List;
 
 public class MenuService {
-    private static final List<Menu> menus = Menu.getAllMenus();
+    private static final List<Menu> menus = List.of(Menu.values());
 
     public static int getPriceWithFoodNameCondition(String foodName) {
         return menus.stream()

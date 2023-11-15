@@ -6,9 +6,9 @@ public class BadgeService {
 
     private static final List<Badge> badges = List.of(Badge.values());
 
-    public static String getBadgeByTotalPrice(int totalPrice) {
+    public static String getBadgeByTotalBenefitPrice(int totalBenefitPrice) {
         return badges.stream()
-            .filter(badge -> badge.getMinimumLimit() <= totalPrice)
+            .filter(badge -> badge.getMinimumLimit() <= totalBenefitPrice)
             .findFirst()
             .map(Badge::getName)
             .orElseThrow(() -> new IllegalArgumentException("해당하는 뱃지가 없습니다."));

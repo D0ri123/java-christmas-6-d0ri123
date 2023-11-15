@@ -20,7 +20,7 @@ class BadgeServiceTest {
         "0,없음"
     })
     void 할인받는_가격에_따라_배지를_다르게_받는다(int price, String badge) {
-        String badgeByPrice = BadgeService.getBadgeByTotalPrice(price);
+        String badgeByPrice = BadgeService.getBadgeByTotalBenefitPrice(price);
         assertEquals(badge, badgeByPrice);
     }
 

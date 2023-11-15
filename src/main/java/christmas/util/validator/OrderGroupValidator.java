@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 public class OrderGroupValidator {
     private static final String regex = "([가-힣]+-[0-9]+,)*[가-힣]+-[0-9]+";
+    private static final int VALID_MAXIMUM = 20;
 
     public static void validateInputTemplate(String input) {
         Pattern template = Pattern.compile(regex);
@@ -42,7 +43,7 @@ public class OrderGroupValidator {
         int totalQuantity = orders.stream()
             .mapToInt(Order::getQuantity)
             .sum();
-        if(totalQuantity > 20) {
+        if(totalQuantity > VALID_MAXIMUM) {
             throw new IllegalArgumentException(MAXIMUM_OVER_MESSAGE);
         }
     }
